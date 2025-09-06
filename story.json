@@ -1,0 +1,159 @@
+{
+  "meta": {
+    "title": "Клуб: 14 дней роста",
+    "version": "per-day",
+    "start": {
+      "currency": 50000,
+      "reputation": 0
+    },
+    "ui": {
+      "defaultImage": "img/intro.jpg",
+      "backgroundMusic": "sounds/bg.mp3",
+      "idleSound": "sounds/idle.mp3",
+      "backgroundVolume": 0.07,
+      "clickVolume": 0.7
+    },
+    "cooldowns": {
+      "1": 1,
+      "2": 3,
+      "3": 5
+    },
+    "cooldownDefaultMin": 10,
+    "cooldownTitle": "Перерыв_test",
+    "cooldownText": "Между днями происходят события…_test"
+  },
+
+  "eventPools": {
+    "mindset": {
+      "cooldownTitle": "Перерыв: mindset",
+      "cooldownText": "Перебор идей и ассоциаций.",
+      "cooldownMin": 5,
+      "idleIntervalSec": 20,
+      "events": [
+        { "id": "ms1", "text": "Вспоминаю названия игр.", "effects": { "currency": -12000 }, "sound": "sounds/events/cash_minus.mp3" },
+        { "id": "ms2", "text": "Смотрю на полку с любимыми книгами.", "sound": "sounds/events/cash_minus.mp3" },
+        { "id": "ms3", "text": "Перебираю названия фильмов.", "effects": { "reputation": 1 }, "sound": "sounds/events/rep_plus.mp3" }
+      ]
+    },
+    "ps_search": {
+      "cooldownTitle": "Перерыв: поиск в сети",
+      "cooldownText": "Видео, статьи и немного котиков.",
+      "cooldownMin": 8,
+      "idleIntervalSec": 25,
+      "events": [
+        { "id": "pc_s1", "text": "Смотрю видео на Рутубе.", "sound": "sounds/events/cash_minus.mp3" },
+        { "id": "pc_s2", "text": "Переключился на мемы с котиками.", "sound": "sounds/events/cash_minus.mp3" },
+        { "id": "pc_s3", "text": "Читаю статьи на Пикабу.", "sound": "sounds/events/rep_plus.mp3" }
+      ]
+    },
+    "discord": {
+      "cooldownTitle": "Перерыв: Discord",
+      "cooldownText": "Созвон со сквадом и брейншторм.",
+      "cooldownMin": 10,
+      "idleIntervalSec": 30,
+      "events": [
+        { "id": "ds_1", "text": "Перебираем истории из жизни.", "sound": "sounds/events/rep_plus.mp3" },
+        { "id": "ds_2", "text": "Включили Шелега.", "sound": "sounds/events/rep_plus.mp3" },
+        { "id": "ds_3", "text": "Вот эти названия точно не подойдут...", "sound": "sounds/events/cash_plus.mp3" }
+      ]
+    }
+  },
+
+  "end_day": [
+    {
+      "day": 1,
+      "startNodeId": "Welcome",
+      "cooldownMin": 1,
+      "idleIntervalSec": 10,
+      "events": [
+        { "text": "Устроил брейншторм. Пока что ничего...", "staticImage": "img/ui_main.jpg", "sound": "sounds/idle.mp3", "weight": 2 },
+        { "text": "Черпаю вдохновение из названия любимых фильмов.", "staticImage": "img/ui_main.jpg", "weight": 2 },
+        { "text": "Смотрю в окно.", "staticImage": "img/intro.jpg", "sound": "sounds/idle.mp3", "weight": 2 }
+      ]
+    },
+    {
+      "day": 2,
+      "startNodeId": "d02",
+      "events": [
+        { "text": "Клиент запросил реквизиты — пригодился Р/С.", "weight": 4, "effects": { "reputation": 1 } },
+        { "text": "Комиссия за обслуживание списана.", "weight": 3, "effects": { "currency": -300 } }
+      ]
+    }
+  ],
+
+  "nodes": [
+    { "id": "Welcome", "type": "info", "speaker": "ГГ", "text": "Если очень сильно захотеть — любая мечта сбудется.", "label": "Далее", "nextId": "Welcome1" },
+    { "id": "Welcome1", "type": "info", "speaker": "ГГ", "text": "Покорить Эверест.", "nextId": "Welcome2" },
+    { "id": "Welcome2", "type": "info", "speaker": "ГГ", "text": "Станцевать в «Жизель» или в «Лебедином озере».", "nextId": "Welcome3" },
+    { "id": "Welcome3", "type": "info", "speaker": "ГГ", "text": "Победить в Олимпийских Играх.", "nextId": "Welcome4" },
+    { "id": "Welcome4", "type": "info", "speaker": "ГГ", "text": "Ну а я всегда хотел...", "nextId": "Welcome5" },
+    { "id": "Welcome5", "type": "info", "speaker": "ГГ", "text": "..... --Выбор-- ...", "nextId": "Welcome6" },
+    { "id": "Welcome6", "type": "info", "speaker": "ГГ", "text": "...открыть компьютерный клуб!", "nextId": "Welcome7" },
+    { "id": "Welcome7", "type": "info", "speaker": "ГГ", "text": "После сотен вечеров в голосовых чатах, тысяч налётов и рейдов...", "staticImage": "img/ui_main.jpg", "nextId": "Welcome8" },
+    { "id": "Welcome8", "type": "info", "speaker": "ГГ", "text": "...и множества уничтоженных тронов...", "nextId": "Welcome9" },
+    { "id": "Welcome9", "type": "info", "speaker": "ГГ", "text": "...я понял, что слишком сильно люблю игры.", "nextId": "Welcome10" },
+    { "id": "Welcome10", "type": "info", "speaker": "ГГ", "text": "Мне нравится играть, смотреть и организовывать игры.", "nextId": "Welcome11" },
+    { "id": "Welcome11", "type": "info", "speaker": "ГГ", "text": "Компьютерный клуб — идеальное место!", "nextId": "Welcome12" },
+    { "id": "Welcome12", "type": "info", "speaker": "ГГ", "text": "А ещё он приносит деньги!", "nextId": "Welcome13" },
+    { "id": "Welcome13", "type": "info", "speaker": "ГГ", "text": "Мечта открыть клуб засела во мне давно. И сейчас, когда их популярность возвращается, я решился.", "nextId": "Welcome14" },
+    { "id": "Welcome14", "type": "info", "speaker": "ГГ", "text": "Но нужно с чего-то начать. Например, с названия.", "staticImage": "img/intro.jpg", "nextId": "Welcome15" },
+    { "id": "Welcome15", "type": "info", "speaker": "ГГ", "text": "Только где его найти?", "staticImage": "img/intro.jpg", "nextId": "Naming" },
+
+    {
+      "id": "Naming",
+      "type": "scene",
+      "speaker": "ГГ",
+      "text": "Как вдохновляться?",
+      "choices": [
+        { "id": "a", "label": "Перебирать все названия в голове, пытаясь найти 'то самое'.", "nextId": "ms_end" },
+        { "id": "b", "label": "Использовать ПК, пытаясь найти название в интернете.", "nextId": "pc_search_end" },
+        { "id": "c", "label": "Созвониться со своим 'сквадом' и устроить массовый 'брейншторм'.", "nextId": "discord_end" }
+      ]
+    },
+
+    {
+      "id": "ms_end",
+      "type": "info",
+      "speaker": "ГГ",
+      "text": "Я сел на диван и начал прикидывать варианты.",
+      "cooldownPoolId": "mindset",
+      "nextId": "__next_day__"
+    },
+    {
+      "id": "pc_search_end",
+      "type": "info",
+      "speaker": "ГГ",
+      "text": "Сел за компьютер, запустил браузер и начал искать...",
+      "cooldownPoolId": "ps_search",
+      "nextId": "__next_day__"
+    },
+    {
+      "id": "discord_end",
+      "type": "info",
+      "speaker": "ГГ",
+      "text": "Зашёл в войс, тегнул сервер. Ну, поехали...",
+      "cooldownPoolId": "discord",
+      "nextId": "__next_day__"
+    },
+
+    { "id": "d02", "type": "info", "speaker": "ГГ", "text": "День 2. Первые клиенты начинают проявлять интерес.", "staticImage": "img/ui_main.jpg", "nextId": "d02_scene1" },
+    {
+      "id": "d02_scene1",
+      "type": "scene",
+      "speaker": "ГГ",
+      "text": "Как реагировать на запрос реквизитов?",
+      "choices": [
+        { "label": "Сразу отправить всё", "effects": { "reputation": 1 }, "sound": "sounds/events/rep_plus.mp3", "nextId": "d02_end_1" },
+        { "label": "Задержать — не готов ещё", "effects": { "reputation": -1 }, "sound": "sounds/events/rep_minus.mp3", "nextId": "d02_end_2" }
+      ]
+    },
+    { "id": "d02_end_1", "type": "info", "speaker": "Система", "text": "Клиент доволен оперативностью.", "sound": "sounds/events/rep_plus.mp3", "nextId": "__next_day__" },
+    { "id": "d02_end_2", "type": "info", "speaker": "Система", "text": "Клиент недоволен задержкой.", "sound": "sounds/events/rep_minus.mp3", "nextId": "__next_day__" }
+  ],
+
+  "idleEvents": [
+    { "text": "Ночной онлайн принёс выручку.", "weight": 2, "effects": { "currency": 300 } },
+    { "text": "Похвалили чистоту залов.", "weight": 2, "effects": { "reputation": 1 } },
+    { "text": "Сломалась мышь — купили новую.", "weight": 2, "effects": { "currency": -200 } }
+  ]
+}

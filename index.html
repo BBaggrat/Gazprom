@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ФинКвест</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="logo-dot"></div>
+      <div class="chip" id="day-indicator">День 1/14</div>
+      <button id="btn-reset" class="icon-btn danger" title="Сброс">↺ Сброс</button>
+      <button id="btn-mute" class="icon-btn" title="Звук">🔊</button>
+    </header>
+
+    <!-- CARDS -->
+    <section class="cards">
+      <article class="card balance">
+        <div class="card-head">
+          <div class="badge">Бюджет клуба</div>
+        </div>
+        <div class="amount" id="res-currency">₽ 0</div>
+      </article>
+
+      <article class="card reputation">
+        <div class="card-head">
+          <div class="badge">Репутация</div>
+        </div>
+        <div class="amount small" id="res-reputation">⭐ 0</div>
+      </article>
+    </section>
+
+    <!-- COOLDOWN PILL -->
+    <div id="cooldown" class="cooldown hidden">
+      Перерыв • осталось <span id="cd-time">00:00</span>
+    </div>
+
+    <!-- STORY PANEL -->
+    <section class="story">
+      <img id="static-image" class="hero" src="" alt=""/>
+      <div class="bubble">
+        <div class="speaker" id="speaker"></div>
+        <div class="text" id="text"></div>
+      </div>
+
+      <div id="choices" class="choices"></div>
+
+      <div id="continue" class="continue hidden" data-next-id="">
+        <button id="btn-continue" class="primary">Далее</button>
+      </div>
+
+      <div id="ending" class="ending hidden"></div>
+    </section>
+
+    <!-- FEED -->
+    <section class="feed" id="feed-list"></section>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

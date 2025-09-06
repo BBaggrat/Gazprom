@@ -1,0 +1,81 @@
+
+:root{
+  --bg:#0e0f12;
+  --card:#181a1f;
+  --card-2:#1d2026;
+  --text:#e6e8ee;
+  --muted:#9aa3b2;
+  --accent:#6c7bff;
+  --accent-2:#2ec5ff;
+  --success:#19c37d;
+  --danger:#ff6b6b;
+  --radius:16px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
+  background:var(--bg);color:var(--text);
+}
+.hidden{display:none}
+#app{max-width:760px;margin:0 auto;padding:10px 12px 24px}
+
+/* TOP BAR */
+.topbar{
+  display:flex;align-items:center;gap:12px;
+  position:sticky;top:0;background:var(--bg);z-index:10;padding:8px 0 12px;
+}
+.logo-dot{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+.chip{padding:6px 10px;border-radius:999px;background:#11131a;color:#c9d1e3;font-size:13px}
+.icon-btn{margin-left:auto;background:#11131a;border:1px solid #242731;border-radius:12px;color:var(--text);padding:6px 10px;cursor:pointer}
+.icon-btn + .icon-btn{margin-left:8px}
+.icon-btn.danger{border-color:#3a1f24;background:#1a0f12;color:#ff8888}
+.icon-btn.danger:hover{background:#201217}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.card{background:var(--card);border-radius:var(--radius);padding:14px 16px;border:1px solid #242731;box-shadow:0 4px 20px rgb(0 0 0 / 30%) inset}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.badge{font-size:12px;color:var(--muted);background:#101218;border:1px solid #242731;border-radius:999px;padding:4px 8px}
+.amount{font-size:34px;font-weight:700;letter-spacing:0.3px}
+.amount.small{font-size:28px}
+.card.balance .amount{background:linear-gradient(90deg,var(--text),#cbd3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.card.reputation .amount{color:#ffd257}
+
+/* COOLDOWN PILL */
+.cooldown{
+  margin:14px 0;padding:10px 12px;border-radius:12px;
+  background:linear-gradient(90deg,#1a1d26,#15171d);
+  border:1px solid #242731;color:#d9def0;font-size:14px
+}
+
+/* STORY */
+.story{margin-top:8px}
+.hero{width:100%;height:180px;object-fit:cover;border-radius:14px;border:1px solid #242731}
+.bubble{margin-top:10px;background:var(--card-2);border:1px solid #242731;border-radius:14px;padding:12px}
+.speaker{color:#cbd3ff;font-weight:600;margin-bottom:6px}
+.text{color:#e6e8ee;font-size:15px;line-height:1.5}
+
+.choices{display:grid;gap:10px;margin-top:12px}
+.choices button{
+  padding:12px 14px;border-radius:14px;border:1px solid #2a2e39;background:#12141a;color:var(--text);
+  cursor:pointer;transition:transform .05s ease, background .2s
+}
+.choices button:hover{background:#171a22}
+.primary{
+  width:100%;padding:14px;border-radius:14px;border:0;cursor:pointer;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#0b0d13;font-weight:700
+}
+.continue{margin-top:8px}
+
+/* ENDING */
+.ending{margin-top:12px;padding:16px;border-radius:14px;background:#13151b;border:1px solid #242731}
+
+/* FEED */
+.feed{margin-top:14px;display:grid;gap:8px}
+.feed-item{
+  background:#11131a;border:1px solid #222635;border-radius:14px;padding:10px 12px;
+}
+.feed-item > div{font-size:14px}
+.feed-item small{color:#9aa3b2}

@@ -19,42 +19,76 @@
       "3": 5
     },
     "cooldownDefaultMin": 10,
-    "cooldownTitle": "Перерыв_test",
-    "cooldownText": "Между днями происходят события…_test"
+    "cooldownTitle": "Перерыв",
+    "cooldownText": "Между днями происходят события…"
   },
 
   "eventPools": {
     "mindset": {
-      "cooldownTitle": "Перерыв: mindset",
-      "cooldownText": "Перебор идей и ассоциаций.",
+      "cooldownTitle": "Перебираю идеи в голове",
+      "cooldownText": "Нужно найти 'ту самую' идею. Попробую пораскинуть мозгами.",
       "cooldownMin": 5,
       "idleIntervalSec": 20,
       "events": [
-        { "id": "ms1", "text": "Вспоминаю названия игр.", "effects": { "currency": -12000 }, "sound": "sounds/events/cash_minus.mp3" },
-        { "id": "ms2", "text": "Смотрю на полку с любимыми книгами.", "sound": "sounds/events/cash_minus.mp3" },
-        { "id": "ms3", "text": "Перебираю названия фильмов.", "effects": { "reputation": 1 }, "sound": "sounds/events/rep_plus.mp3" }
+        { "id": "ms6", "text": "Перебираю список своих увлечений." },
+        { "id": "ms7", "text": "Мечтаю о деньгах." },
+        { "id": "ms8", "text": "Проверяю, свободны ли домены." },
+		{ "id": "ms9", "text": "Бездумно скроллю лентую" },
+		{ "id": "ms10", "text": "Бездумно смотрю в потолок." },
+		
+		{ "id": "ms1", "text": "Вспоминаю, как ходил на турнир.", "chain": "ms_chain1", "next": "ms2", "once": true },
+        { "id": "ms2", "text": "Достал майку, которую я поймал во время розыгрыша.", "inChain": "ms_chain1", "next": "ms3", "once": true  },
+		{ "id": "ms3", "text": "На ней роспись одного из игроков. Это было круто.", "inChain": "ms_chain1", "next": "ms4", "once": true  },
+		{ "id": "ms4", "text": "Смотрю на старые фото с турнира.", "inChain": "ms_chain1", "next": "ms5", "once": true  },
+        { "id": "ms5", "text": "Убрал майку обратно в шкаф. Турниры - вещь интересная.", "inChain": "ms_chain1", "once": true  },
+
+        {
+          "id": "ms_kitchen",
+          "text": "Пошёл на кухню за чаем.",
+          "enterPool": {
+            "count": 6,
+            "events": [
+              { "id": "k1", "text": "Смотрю в окно на компанию подростков." },
+              { "id": "k2", "text": "Изучаю содержимое холодильника.", "weight": 1, "once": true  },
+              { "id": "k3", "text": "Хожу по кухне и коридору назад - вперед." },
+              { "id": "k4", "text": "А было бы классно собраться компанией на LAN-вечер...", "once": true }
+            ]
+          }
+        }
       ]
     },
+
     "ps_search": {
       "cooldownTitle": "Перерыв: поиск в сети",
       "cooldownText": "Видео, статьи и немного котиков.",
       "cooldownMin": 8,
       "idleIntervalSec": 25,
       "events": [
-        { "id": "pc_s1", "text": "Смотрю видео на Рутубе.", "sound": "sounds/events/cash_minus.mp3" },
-        { "id": "pc_s2", "text": "Переключился на мемы с котиками.", "sound": "sounds/events/cash_minus.mp3" },
-        { "id": "pc_s3", "text": "Читаю статьи на Пикабу.", "sound": "sounds/events/rep_plus.mp3" }
+        { "id": "pc_s1", "text": "Смотрю видео на Рутубе." },
+        { "id": "pc_s2", "text": "Переключился на мемы с котиками." },
+        { "id": "pc_s3", "text": "Читаю статьи на Пикабу." }
       ]
     },
+
     "discord": {
-      "cooldownTitle": "Перерыв: Discord",
-      "cooldownText": "Созвон со сквадом и брейншторм.",
-      "cooldownMin": 10,
-      "idleIntervalSec": 30,
+      "cooldownTitle": "Созвон с друзьями",
+      "cooldownText": "Одна голова - хорошо. Но целый сервер - лучше.",
+      "cooldownMin": 5,
+      "idleIntervalSec": 20,
       "events": [
-        { "id": "ds_1", "text": "Перебираем истории из жизни.", "sound": "sounds/events/rep_plus.mp3" },
-        { "id": "ds_2", "text": "Включили Шелега.", "sound": "sounds/events/rep_plus.mp3" },
-        { "id": "ds_3", "text": "Вот эти названия точно не подойдут...", "sound": "sounds/events/cash_plus.mp3" }
+        { "id": "ds_1", "text": "Перебираем истории из жизни." },
+        { "id": "ds_2", "text": "Включили безумную музыку." },
+        { "id": "ds_3", "text": "Отказываюсь идти играть. Даже одну." },
+		{ "id": "ds_2", "text": "Обсуждаем игры." },
+		{ "id": "ds_2", "text": "Обсуждаем насколько 'скатился' геймдев." },
+		{ "id": "ds_2", "text": "О, нет. Такое нам не подойдет..." },
+		{ "id": "ds_2", "text": "Обсуждаем деньги." },
+		
+		{ "id": "ds_talking", "text": "Вспомнили наш поход на киберспортивный турнир.", "chain": "ds_chain1", "next": "ds_talking_1", "once": true },
+		{ "id": "ds_talking_1", "text": "В очередно раз вспомнили про наш проигрыш.", "chain": "ds_chain1", "next": "ds_talking_2", "once": true },
+		{ "id": "ds_talking_2", "text": "Все равно бьло весело.", "chain": "ds_chain1", "next": "ds_talking_3", "once": true },
+		{ "id": "ds_talking_3", "text": "Обсудили, что было бы весело собираться и играть в оффлайне.", "chain": "ds_chain1", "next": "ds_talking_4", "once": true },
+		{ "id": "ds_talking_4", "text": "Закрыл окно из-за шумной компании на улице.", "chain": "ds_chain1", "once": true }
       ]
     }
   },
@@ -82,31 +116,35 @@
   ],
 
   "nodes": [
-    { "id": "Welcome", "type": "info", "speaker": "ГГ", "text": "Если очень сильно захотеть — любая мечта сбудется.", "label": "Далее", "nextId": "Welcome1" },
-    { "id": "Welcome1", "type": "info", "speaker": "ГГ", "text": "Покорить Эверест.", "nextId": "Welcome2" },
-    { "id": "Welcome2", "type": "info", "speaker": "ГГ", "text": "Станцевать в «Жизель» или в «Лебедином озере».", "nextId": "Welcome3" },
-    { "id": "Welcome3", "type": "info", "speaker": "ГГ", "text": "Победить в Олимпийских Играх.", "nextId": "Welcome4" },
-    { "id": "Welcome4", "type": "info", "speaker": "ГГ", "text": "Ну а я всегда хотел...", "nextId": "Welcome5" },
-    { "id": "Welcome5", "type": "info", "speaker": "ГГ", "text": "..... --Выбор-- ...", "nextId": "Welcome6" },
-    { "id": "Welcome6", "type": "info", "speaker": "ГГ", "text": "...открыть компьютерный клуб!", "nextId": "Welcome7" },
-    { "id": "Welcome7", "type": "info", "speaker": "ГГ", "text": "После сотен вечеров в голосовых чатах, тысяч налётов и рейдов...", "staticImage": "img/ui_main.jpg", "nextId": "Welcome8" },
-    { "id": "Welcome8", "type": "info", "speaker": "ГГ", "text": "...и множества уничтоженных тронов...", "nextId": "Welcome9" },
-    { "id": "Welcome9", "type": "info", "speaker": "ГГ", "text": "...я понял, что слишком сильно люблю игры.", "nextId": "Welcome10" },
-    { "id": "Welcome10", "type": "info", "speaker": "ГГ", "text": "Мне нравится играть, смотреть и организовывать игры.", "nextId": "Welcome11" },
-    { "id": "Welcome11", "type": "info", "speaker": "ГГ", "text": "Компьютерный клуб — идеальное место!", "nextId": "Welcome12" },
-    { "id": "Welcome12", "type": "info", "speaker": "ГГ", "text": "А ещё он приносит деньги!", "nextId": "Welcome13" },
-    { "id": "Welcome13", "type": "info", "speaker": "ГГ", "text": "Мечта открыть клуб засела во мне давно. И сейчас, когда их популярность возвращается, я решился.", "nextId": "Welcome14" },
-    { "id": "Welcome14", "type": "info", "speaker": "ГГ", "text": "Но нужно с чего-то начать. Например, с названия.", "staticImage": "img/intro.jpg", "nextId": "Welcome15" },
-    { "id": "Welcome15", "type": "info", "speaker": "ГГ", "text": "Только где его найти?", "staticImage": "img/intro.jpg", "nextId": "Naming" },
+    { "id": "Welcome", "type": "info", "speaker": "ГГ", "text": "В детстве мне всегда говорили: если очень сильно захотеть — любая мечта сбудется.", "label": "Далее", "nextId": "Welcome1" },
+    { "id": "Welcome1", "type": "info", "speaker": "ГГ", "text": "Можно покорить Эверест.", "nextId": "Welcome2" },
+    { "id": "Welcome2", "type": "info", "speaker": "ГГ", "text": "Можно стать известным шоуменом.", "nextId": "Welcome3" },
+    { "id": "Welcome3", "type": "info", "speaker": "ГГ", "text": "Можно победить в Олимпийских Играх.", "nextId": "Welcome4" },
+    { "id": "Welcome4", "type": "info", "speaker": "ГГ", "text": "Неплохие мечты, я считаю.", "nextId": "Welcome5" },
+    { "id": "Welcome5", "type": "info", "speaker": "ГГ", "text": "Но, к сожалению они недостижимы. ", "nextId": "Welcome6" },
+    { "id": "Welcome6", "type": "info", "speaker": "ГГ", "text": "Обычный человек вряд ли поднимется на гору или станет олимпийским чемпионом.", "nextId": "Welcome7" },
+    { "id": "Welcome7", "type": "info", "speaker": "ГГ", "text": "Особенно, если этот человек постоянно сидит за компьютером и играет в игры.", "nextId": "Welcome8" },
+    { "id": "Welcome8", "type": "info", "speaker": "ГГ", "text": "Что я могу предложить? Какой опыт у меня есть? Сотни вечеров в голосовых чатах? Десятки рейдов?", "staticImage": "img/ui_main.jpg", "nextId": "Welcome9" },
+    { "id": "Welcome9", "type": "info", "speaker": "ГГ", "text": "Сотни уничтоженных тронов?", "nextId": "Welcome10" },
+    { "id": "Welcome10", "type": "info", "speaker": "ГГ", "text": "Вряд ли мне этого хватит, чтобы стать шоуменом или удариться в спорт.", "nextId": "Welcome11" },
+    { "id": "Welcome11", "type": "info", "speaker": "ГГ", "text": "Может, киберспорт?", "nextId": "Welcome12" },
+    { "id": "Welcome12", "type": "info", "speaker": "ГГ", "text": "Я посмотрел на свой место в ранговом рейтинге. Не так уж и плохо, но до киберспорта еще очень далеко.", "nextId": "Welcome13" },
+    { "id": "Welcome13", "type": "info", "speaker": "ГГ", "text": "А из-за работы я вряд ли смогу часто тренироваться.", "nextId": "Welcome14" },
+	{ "id": "Welcome14", "type": "info", "speaker": "ГГ", "text": "Надо что-то делать. Но что именно?", "nextId": "Welcome15" },
+	{ "id": "Welcome15", "type": "info", "speaker": "ГГ", "text": "Мне нравятся игры. Мне нравится в них играть с друзьями. И мне нравится киберспорт.", "nextId": "Welcome16" },
+	{ "id": "Welcome16", "type": "info", "speaker": "ГГ", "text": "Я посмотрел на фотографию с первого посещенного турнира, когда еще был подростком. Тогда мы впервые встретились с другом, с которым играли в онлайне.", "nextId": "Welcome17" },
+	{ "id": "Welcome17", "type": "info", "speaker": "ГГ", "text": "Хорошее было время. Слишком много приятных воспоминаний. И они часто были связаны с играми.", "nextId": "Welcome18" },
+    { "id": "Welcome18", "type": "info", "speaker": "ГГ", "text": "Я откинулся на спинку кресла. Надо было что-то делать. Но как понять, что именно?", "nextId": "Welcome19" },
+    { "id": "Welcome19", "type": "info", "speaker": "ГГ", "text": "Надо найти где-то вдохновение.", "staticImage": "img/intro.jpg", "nextId": "Naming" },
 
     {
       "id": "Naming",
       "type": "scene",
       "speaker": "ГГ",
-      "text": "Как вдохновляться?",
+      "text": "Где мне найти вдохновение?",
       "choices": [
-        { "id": "a", "label": "Перебирать все названия в голове, пытаясь найти 'то самое'.", "nextId": "ms_end" },
-        { "id": "b", "label": "Использовать ПК, пытаясь найти название в интернете.", "nextId": "pc_search_end" },
+        { "id": "a", "label": "Перебирать идеи в голове, пытаясь найти 'ту самую'.", "nextId": "ms_end" },
+        { "id": "b", "label": "Поискать идеи в интернете. IN PROGRESS", "nextId": "pc_search_end" },
         { "id": "c", "label": "Созвониться со своим 'сквадом' и устроить массовый 'брейншторм'.", "nextId": "discord_end" }
       ]
     },
@@ -152,8 +190,8 @@
   ],
 
   "idleEvents": [
-    { "text": "Ночной онлайн принёс выручку.", "weight": 2, "effects": { "currency": 300 } },
-    { "text": "Похвалили чистоту залов.", "weight": 2, "effects": { "reputation": 1 } },
-    { "text": "Сломалась мышь — купили новую.", "weight": 2, "effects": { "currency": -200 } }
+    { "text": "Смотрю в окно." },
+    { "text": "Почесался." },
+    { "text": "Притопываю ногой." }
   ]
 }

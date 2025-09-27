@@ -79,3 +79,12 @@ body{
 }
 .feed-item > div{font-size:14px}
 .feed-item small{color:#9aa3b2}
+
+/* Hackathon patch: preserve newlines in text block */
+#text { white-space: pre-line; }
+
+/* TEMP: скрываем валюту и репутацию полностью */
+#res-currency, #res-reputation, .reputation { display: none !important; visibility: hidden !important; }
+
+/* Hide resource cards entirely */
+.cards { display: none !important; }

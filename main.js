@@ -1,3 +1,25 @@
+
+
+// === injected: clearAllEventsUI (hackathon patch) ===
+function clearAllEventsUI() {
+  try {
+    // Очистка состояния ленты, если такая структура есть
+    if (typeof state !== 'undefined' && state && Array.isArray(state.feed)) {
+      state.feed.length = 0;
+      if (typeof renderFeed === 'function') renderFeed();
+    }
+    // Удаление DOM-элементов, если они рендерятся напрямую
+    const selectors = ['.event', '.idle-event', '.event-item', '#feed-list .item', '#events .event'];
+    selectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        if (el && el.parentNode) el.parentNode.removeChild(el);
+      });
+    });
+  } catch (e) {
+    console && console.warn && console.warn('clearAllEventsUI failed:', e);
+  }
+}
+// === end injected ===
 // ===============================
 // ФинКвест — main.js (chains fix + subpools + idle 3-tick cooldown) — v6-fix
 // ===============================
@@ -70,7 +92,7 @@ var state = {
   day: 1,
   dayCompleted: false,
   nodeId: null,
-  resources: { currency: 0, reputation: 0 },
+//   resources: { currency: 0, reputation: 0 },
   history: [],
   lastActiveISO: null,
   feed: [],
@@ -107,7 +129,7 @@ function fmtHMS(ms) {
 }
 function getStartResources() {
   var s = STORY && STORY.meta && STORY.meta.start || {};
-  return { currency: s.currency || 0, reputation: s.reputation || 0 };
+//   return { currency: s.currency || 0, reputation: s.reputation || 0 };
 }
 function getUi() { return (STORY && STORY.meta && STORY.meta.ui) || {}; }
 
@@ -338,15 +360,17 @@ function render() {
 }
 
 function updateHud() {
-  var c = $("#res-currency"), r = $("#res-reputation");
-  if (c) c.textContent = "₽ " + state.resources.currency;
-  if (r) r.textContent = "⭐ " + state.resources.reputation;
+//   var c = $("#res-currency"), r = $("#res-reputation");
+//   if (c) c.textContent = "₽ " + state.resources.currency;
+//   if (r) r.textContent = "⭐ " + state.resources.reputation;
 }
 
 function choose(node, ch) {
+  clearAllEventsUI();
+
   if (ch.effects) {
     applyEffects(ch.effects);
-    appendFeed("Выбор: " + ch.label, (ch.effects && ch.effects.currency) || 0, (ch.effects && ch.effects.reputation) || 0);
+//     appendFeed("Выбор: " + ch.label, (ch.effects && ch.effects.currency) || 0, (ch.effects && ch.effects.reputation) || 0);
   }
   if (ch.staticImage) setStaticImage(ch.staticImage);
   if (ch.sound) playSfx(ch.sound);
@@ -406,7 +430,7 @@ function tick() {
       var be = getDayBreakEvent(state.day);
       if (be) {
         if (be.effects) applyEffects(be.effects);
-        appendFeed(be.text, (be.effects && be.effects.currency) || 0, (be.effects && be.effects.reputation) || 0);
+//         appendFeed(be.text, (be.effects && be.effects.currency) || 0, (be.effects && be.effects.reputation) || 0);
         if (be.staticImage) setStaticImage(be.staticImage);
         if (be.sound) playSfx(be.sound);
       }
@@ -492,8 +516,8 @@ function fireIdleEvent(chosen) {
   if (chosen.sound) playSfx(chosen.sound);
   appendFeed(
     chosen.text,
-    (chosen.effects && chosen.effects.currency) || 0,
-    (chosen.effects && chosen.effects.reputation) || 0
+//     (chosen.effects && chosen.effects.currency) || 0,
+//     (chosen.effects && chosen.effects.reputation) || 0
   );
   if (chosen.once === true) {
     var cid = chosen.id || chosen.text;

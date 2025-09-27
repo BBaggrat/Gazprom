@@ -26,6 +26,88 @@ function clearAllEventsUI() {
 
 var SAVE_KEY = "finquest_perday_v6";
 var STORY_URL = "story.json";
+
+// === Hidden Ending Score System (invisible counter) ===
+var HIDDEN_SCORE_KEY = "finquest_hidden_score_v1";
+
+function getHiddenScore() {
+  var v = localStorage.getItem(HIDDEN_SCORE_KEY);
+  return v === null ? 0 : (parseInt(v, 10) || 0);
+}
+function setHiddenScore(val) { localStorage.setItem(HIDDEN_SCORE_KEY, String(parseInt(val, 10) || 0)); }
+function addToHiddenScore(delta) { setHiddenScore(getHiddenScore() + (parseInt(delta, 10) || 0)); }
+
+// Configurable endings
+var ENDINGS = [
+  { id: "bad", title: "Концовка: «Ещё всё впереди»",
+    text: "Клуб открыли, но ряд решений мешал росту. Переосмыслите стратегию и попробуйте снова.",
+    condition: function(score){ return score <= 0; } },
+  { id: "neutral", title: "Концовка: «Держимся на плаву»",
+    text: "Нелегко, но клуб выжил. Поток клиентов нестабилен, но фундамент заложен.",
+    condition: function(score){ return score >= 1 && score <= 3; } },
+  { id: "good", title: "Концовка: «GG WP!»",
+    text: "Вы выстроили процессы и вывели клуб в плюс. Команда готова к следующему турниру!",
+    condition: function(score){ return score >= 4; } }
+];
+function pickEndingByScore(score){
+  // Репутация задаёт концовку: <3 — плохая, >3 — хорошая, =3 — нейтральная
+  var rep = 0;
+  try {
+    rep = Number((state && state.resources && state.resources.reputation) || 0);
+    if (isNaN(rep)) rep = 0;
+  } catch(e){ rep = 0; }
+  if (rep < 1) return ENDINGS[0];
+  if (rep > 4) return ENDINGS[2];
+  return ENDINGS[1];
+}
+function renderHiddenScoreEnding(){
+  var end = $("#ending");
+  if (!end) return;
+
+  try { state.forceEnding = true; localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch(e){}
+  var root = document.getElementById('app'); if (root) root.classList.add('force-ending');
+  var cont = $("#continue");
+  if (cont) {
+    cont.classList.add("hidden");
+    cont.style.display = "none";
+    var btn = cont.querySelector("button");
+    if (btn) { btn.disabled = true; btn.setAttribute("aria-disabled", "true"); btn.style.pointerEvents = "none"; }
+  }
+
+  var score = getHiddenScore();
+  var e = pickEndingByScore(score);
+
+  end.classList.remove("hidden");
+  end.innerHTML =
+    '<div class="ending-card">' +
+      '<h2>' + e.title + '</h2>' +
+      '<p>' + e.text + '</p>' +
+      '<button id="restartBtn" class="primary">Начать заново</button>' +
+    '</div>';
+
+  var rb = $("#restartBtn");
+  if (rb) rb.onclick = function(){
+    try {
+      state.forceEnding = false;
+      var root = document.getElementById('app'); if (root) root.classList.remove('force-ending');
+      var end = $("#ending"); if (end) end.classList.add("hidden");
+      var cont = $("#continue");
+      if (cont) {
+        cont.classList.remove("hidden");
+        cont.style.display = "";
+        var btn = cont.querySelector("button");
+        if (btn) { btn.disabled = false; btn.removeAttribute("aria-disabled"); btn.style.pointerEvents = ""; }
+      }
+    } catch(e){}
+
+    setHiddenScore(0);
+    var r = $("#btn-reset");
+    if (r && typeof r.onclick === "function") r.onclick();
+    else if (typeof restart === "function") restart();
+    else if (typeof render === "function") render();
+  };
+}
+
 var STORY = null;
 
 // ---------- helpers for "end_day" vs "days"
@@ -92,7 +174,7 @@ var state = {
   day: 1,
   dayCompleted: false,
   nodeId: null,
-//   resources: { currency: 0, reputation: 0 },
+  resources: {},
   history: [],
   lastActiveISO: null,
   feed: [],
@@ -222,14 +304,42 @@ function bindUI() {
 
   var choices = $("#choices");
   if (choices) {
+choices.addEventListener("click", function (ev) {
+      var btn = ev.target && (ev.target.tagName === "BUTTON" ? ev.target : (ev.target.closest && ev.target.closest("button")));
+      if (!btn) return;
+      ensureBackground();
+      // Prefer bound onclick, else delegate
+      if (typeof btn.onclick === "function") { btn.onclick(); return; }
+      var node = findNode(state.nodeId);
+      if (!node) return;
+      var idx = (btn.dataset && btn.dataset.i) ? parseInt(btn.dataset.i, 10) : -1;
+      var ch = (Array.isArray(node.choices) && idx >= 0) ? node.choices[idx] : null;
+      if (!ch) {
+        // try match by label text
+        var label = (btn.textContent || "").trim();
+        if (Array.isArray(node.choices)) {
+          for (var i=0;i<node.choices.length;i++) { if ((node.choices[i].label||"").trim()===label) { ch = node.choices[i]; idx=i; break; } }
+        }
+      }
+      if (ch) { choose(node, ch); }
+    }, true);
+
     choices.addEventListener("click", function (ev) {
-      if (ev.target && ev.target.tagName === "BUTTON") { ensureBackground(); }
+      var btn = ev.target && (ev.target.tagName === "BUTTON" ? ev.target : ev.target.closest && ev.target.closest("button"));
+      if (!btn) return;
+      ensureBackground();
+      if (btn.onclick) return; // normal path is bound
+      var node = findNode(state.nodeId);
+      var idx = btn.dataset && btn.dataset.i ? parseInt(btn.dataset.i, 10) : -1;
+      var ch = (node && node.choices && idx >= 0) ? node.choices[idx] : null;
+      if (node && ch) { choose(node, ch); }
     }, true);
   }
 
   var r = $("#btn-reset");
   if (r) r.onclick = function () {
     localStorage.removeItem(SAVE_KEY);
+    try { setHiddenScore(0); } catch(e){}
     state = {
       day: 1, dayCompleted: false, nodeId: getDayStartNode(1),
       resources: getStartResources(), history: [], lastActiveISO: nowISO(), feed: [],
@@ -298,6 +408,11 @@ function resolveNextEventId(currentId, marker) {
 }
 
 function advanceDay() {
+  if (!getDayObj(state.day + 1)) {
+    state.dayCompleted = true;
+    try { renderHiddenScoreEnding(); } catch (e) { console.error(e); }
+    return;
+  }
   state.day = Math.min(14, state.day + 1);
   state.dayCompleted = false;
   state.nodeId = state.nextDayStartNodeId || getDayStartNode(state.day);
@@ -308,7 +423,12 @@ function isInCooldown() { return state.cooldownUntilISO && new Date(state.cooldo
 
 // ---------- render
 function render() {
-  var di = $("#day-indicator"); if (di) di.textContent = "День " + state.day + "/14";
+  if (state && state.forceEnding) {
+    var cont = $("#continue"); if (cont) { cont.classList.add("hidden"); cont.style.display="none"; }
+    var end = $("#ending"); if (end) end.classList.remove("hidden");
+    return;
+  }
+var di = $("#day-indicator"); if (di) di.textContent = "День " + state.day + "/14";
   updateHud(); renderFeed();
 
   var cd = $("#cooldown"), cdt = $("#cd-time");
@@ -332,9 +452,7 @@ function render() {
       var arr = node.choices || [];
       if (arr.length) {
         arr.forEach(function (ch) {
-          var b = el("button");
-          b.textContent = ch.label;
-          b.onclick = function () { choose(node, ch); };
+          var b = el("button"); b.textContent = ch.label; b.dataset.i = String(arr.indexOf(ch)); b.onclick = function () { choose(node, ch); };
           choices.appendChild(b);
         });
       } else if (node.nextId) {
@@ -368,10 +486,19 @@ function updateHud() {
 function choose(node, ch) {
   clearAllEventsUI();
 
-  if (ch.effects) {
-    applyEffects(ch.effects);
-//     appendFeed("Выбор: " + ch.label, (ch.effects && ch.effects.currency) || 0, (ch.effects && ch.effects.reputation) || 0);
+  if (typeof ch.impact !== "undefined") {
+    try { addToHiddenScore(ch.impact); } catch(e){}
+  } else if (ch && ch.effects) {
+    var eff = ch.effects || {};
+    var imp = 0;
+    if ((typeof eff.reputation === "number" && eff.reputation !== 0) ||
+        (typeof eff.currency   === "number" && eff.currency   !== 0)) {
+      imp = ((eff.reputation > 0) || (eff.currency > 0)) ? 1 : -1;
+    }
+    if (imp !== 0) { try { addToHiddenScore(imp); } catch(e){} }
   }
+
+  if (ch.effects) { applyEffects(ch.effects); }
   if (ch.staticImage) setStaticImage(ch.staticImage);
   if (ch.sound) playSfx(ch.sound);
 
@@ -389,12 +516,20 @@ function choose(node, ch) {
 }
 
 function applyEffects(eff) {
+  if (!eff || typeof eff !== "object") return;
+  if (!state.resources || typeof state.resources !== "object") state.resources = {};
   for (var k in eff) {
-    if (state.resources.hasOwnProperty(k)) { state.resources[k] += eff[k]; }
+    if (!Object.prototype.hasOwnProperty.call(eff, k)) continue;
+    var delta = Number(eff[k]) || 0;
+    var cur = Number(state.resources[k] || 0);
+    state.resources[k] = cur + delta;
   }
 }
 
 function goNextContinue() {
+  if (state && state.forceEnding) return;
+  var end = $("#ending"); if (end && !end.classList.contains("hidden")) return;
+
   var marker = $("#continue").dataset.nextId;
 
   if (marker && marker.indexOf("__next_event__") === 0) {
@@ -402,17 +537,29 @@ function goNextContinue() {
     render();
     return;
   }
-  if (marker && marker.indexOf("__next_day__::") === 0) { state.cooldownPoolId = marker.split("::")[1]; marker = "__next_day__"; }
-  if (marker && marker.indexOf("__next_day__:") === 0) { state.nextDayStartNodeId = marker.split(":")[1]; marker = "__next_day__"; }
+  if (marker && marker.indexOf("__next_day__::") === 0) {
+    state.cooldownPoolId = marker.split("::")[1];
+    marker = "__next_day__";
+  }
+  if (marker && marker.indexOf("__next_day__:") === 0) {
+    state.nextDayStartNodeId = marker.split(":")[1];
+    marker = "__next_day__";
+  }
 
   if (marker === "__next_day__") {
+    var noNext = !getDayObj(state.day + 1);
+    if (noNext) {
+      state.dayCompleted = true;
+      try { renderHiddenScoreEnding(); } catch (e) { console.error(e); }
+      return;
+    }
     state.dayCompleted = true;
     var now = Date.now();
     state.cooldownUntilISO = new Date(now + getCooldownMsForDay(state.day)).toISOString();
-    state.nextIdleAtISO = new Date(now + getIdleIntervalMsForDay(state.day)).toISOString();
+    state.nextIdleAtISO   = new Date(now + getIdleIntervalMsForDay(state.day)).toISOString();
     state.cooldownOnceSeenIds = [];
     state.cooldownOnceSeenChains = [];
-    state.idleCooldowns = {}; // сброс мягких кулдаунов
+    state.idleCooldowns = {};
     state.breakEventFired = false;
     state.idleContext = { chainNextId: null, chainId: null, subPool: null, subLeft: 0 };
     appendFeed("День завершён. Перерыв начался…", 0, 0);
@@ -425,7 +572,8 @@ function goNextContinue() {
 // ---------- ticker
 function startTicker() { setInterval(tick, 1000); }
 function tick() {
-  if (state.cooldownUntilISO && new Date(state.cooldownUntilISO) <= new Date()) {
+  if (state && state.forceEnding) return;
+if (state.cooldownUntilISO && new Date(state.cooldownUntilISO) <= new Date()) {
     if (!state.breakEventFired) {
       var be = getDayBreakEvent(state.day);
       if (be) {

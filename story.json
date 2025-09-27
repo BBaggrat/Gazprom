@@ -27,7 +27,7 @@
     "mindset": {
       "cooldownTitle": "Перебираю идеи в голове",
       "cooldownText": "Нужно найти 'ту самую' идею. Попробую пораскинуть мозгами.",
-      "cooldownMin": 5,
+      "cooldownMin": 1,
       "idleIntervalSec": 20,
       "events": [
         { "id": "ms6", "text": "Перебираю список своих увлечений." },
@@ -61,7 +61,7 @@
     "ps_search": {
       "cooldownTitle": "Перерыв: поиск в сети",
       "cooldownText": "Видео, статьи и немного котиков.",
-      "cooldownMin": 8,
+      "cooldownMin": 1,
       "idleIntervalSec": 25,
       "events": [
         { "id": "pc_s1", "text": "Смотрю видео на Рутубе." },
@@ -73,7 +73,7 @@
     "discord": {
       "cooldownTitle": "Созвон с друзьями",
       "cooldownText": "Одна голова - хорошо. Но целый сервер - лучше. \n Для комиссии время перерыва уменьшено.",
-      "cooldownMin": 5,
+      "cooldownMin": 1,
       "idleIntervalSec": 20,
       "events": [
         { "id": "ds_1", "text": "Перебираем истории из жизни." },
@@ -109,70 +109,56 @@
       "day": 2,
       "startNodeId": "d02",
       "events": [
-        { "text": "Клиент запросил реквизиты — пригодился Р/С.", "weight": 4, "effects": { "reputation": 1 } },
+        { "text": "Клиент запросил реквизиты — пригодился Р/С.", "weight": 4, "effects": { "reputation": 0 } },
         { "text": "Комиссия за обслуживание списана.", "weight": 3, "effects": { "currency": -300 } }
       ]
     }
   ],
 
   "nodes": [
-    { "id": "Welcome", "type": "info", "speaker": "ГГ", "text": "В детстве мне всегда говорили: если очень сильно захотеть — любая мечта сбудется.", "label": "Далее", "nextId": "Welcome1" },
-    { "id": "Welcome1", "type": "info", "speaker": "ГГ", "text": "Можно покорить Эверест.", "nextId": "Welcome2" },
-    { "id": "Welcome2", "type": "info", "speaker": "ГГ", "text": "Можно стать известным шоуменом.", "nextId": "Welcome3" },
-    { "id": "Welcome3", "type": "info", "speaker": "ГГ", "text": "Можно победить в Олимпийских Играх.", "nextId": "Welcome4" },
-    { "id": "Welcome4", "type": "info", "speaker": "ГГ", "text": "Неплохие мечты, я считаю.", "nextId": "Welcome5" },
-    { "id": "Welcome5", "type": "info", "speaker": "ГГ", "text": "Но, к сожалению они недостижимы. ", "nextId": "Welcome6" },
-    { "id": "Welcome6", "type": "info", "speaker": "ГГ", "text": "Обычный человек вряд ли поднимется на гору или станет олимпийским чемпионом.", "nextId": "Welcome7" },
-    { "id": "Welcome7", "type": "info", "speaker": "ГГ", "text": "Особенно, если этот человек постоянно сидит за компьютером и играет в игры.", "nextId": "Welcome8" },
-    { "id": "Welcome8", "type": "info", "speaker": "ГГ", "text": "Что я могу предложить? Какой опыт у меня есть? Сотни вечеров в голосовых чатах? Десятки рейдов?", "staticImage": "img/ui_main.jpg", "nextId": "Welcome9" },
-    { "id": "Welcome9", "type": "info", "speaker": "ГГ", "text": "Сотни уничтоженных тронов?", "nextId": "Welcome10" },
-    { "id": "Welcome10", "type": "info", "speaker": "ГГ", "text": "Вряд ли мне этого хватит, чтобы стать шоуменом или удариться в спорт.", "nextId": "Welcome11" },
-    { "id": "Welcome11", "type": "info", "speaker": "ГГ", "text": "Может, киберспорт?", "nextId": "Welcome12" },
-    { "id": "Welcome12", "type": "info", "speaker": "ГГ", "text": "Я посмотрел на свой место в ранговом рейтинге. Не так уж и плохо, но до киберспорта еще очень далеко.", "nextId": "Welcome13" },
-    { "id": "Welcome13", "type": "info", "speaker": "ГГ", "text": "А из-за работы я вряд ли смогу часто тренироваться.", "nextId": "Welcome14" },
-	{ "id": "Welcome14", "type": "info", "speaker": "ГГ", "text": "Надо что-то делать. Но что именно?", "nextId": "Welcome15" },
-	{ "id": "Welcome15", "type": "info", "speaker": "ГГ", "text": "Мне нравятся игры. Мне нравится в них играть с друзьями. И мне нравится киберспорт.", "nextId": "Welcome16" },
-	{ "id": "Welcome16", "type": "info", "speaker": "ГГ", "text": "Я посмотрел на фотографию с первого посещенного турнира, когда еще был подростком. Тогда мы впервые встретились с другом, с которым играли в онлайне.", "nextId": "Welcome17" },
-	{ "id": "Welcome17", "type": "info", "speaker": "ГГ", "text": "Хорошее было время. Слишком много приятных воспоминаний. И они часто были связаны с играми.", "nextId": "Welcome18" },
-    { "id": "Welcome18", "type": "info", "speaker": "ГГ", "text": "Я откинулся на спинку кресла. Надо было что-то делать. Но как понять, что именно?", "nextId": "Welcome19" },
-    { "id": "Welcome19", "type": "info", "speaker": "ГГ", "text": "Надо найти где-то вдохновение.", "staticImage": "img/intro.jpg", "nextId": "Naming" },
+    { "id": "Welcome", "type": "info", "speaker": "ГГ", "text": "Сколько себя помню, у меня всегда была мечта...", "label": "Далее", "nextId": "Welcome1" },
+    { "id": "Welcome1", "type": "info", "speaker": "ГГ", "text": "Я с детства любил игры. ", "nextId": "Welcome2" },
+    { "id": "Welcome2", "type": "info", "speaker": "ГГ", "text": "Меня увлекал процесс... соревнование... драйв.", "nextId": "Welcome3" },
+    { "id": "Welcome3", "type": "info", "speaker": "ГГ", "text": "Я хочу связать свою жизнь с этим, но киберспорт - слишком сложная вещь для меня.", "nextId": "Welcome4" },
+    { "id": "Welcome4", "type": "info", "speaker": "ГГ", "text": "Как было бы здорово собрать всех своих друзей под одной крышей и сыграть всем вместе.", "nextId": "Welcome5" },
+    { "id": "Welcome5", "type": "info", "speaker": "ГГ", "text": "Как в старые добрые...", "nextId": "Welcome6" },
+    { "id": "Welcome6", "type": "info", "speaker": "ГГ", "text": "Хорошая мечта...", "nextId": "Welcome7" },
+    { "id": "Welcome7", "type": "info", "speaker": "ГГ", "text": "А что если можно просто взять и сделать это?", "nextId": "Welcome8" },
+    { "id": "Welcome8", "type": "info", "speaker": "ГГ", "text": "Что если я смогу открыть мой собственный клуб?", "staticImage": "img/ui_main.jpg", "nextId": "Welcome9" },
+    { "id": "Welcome9", "type": "info", "speaker": "ГГ", "text": "Турниры, атмосфера, люди…", "nextId": "Welcome10" },
+    { "id": "Welcome10", "type": "info", "speaker": "ГГ", "text": "В конце концов - мечты сбываются, верно?", "nextId": "Welcome11" },
+    { "id": "Welcome11", "type": "info", "speaker": "ГГ", "text": "Команда 1221 представляет.", "nextId": "Welcome12" },
+    { "id": "Welcome12", "type": "info", "speaker": "ГГ", "text": "Я проснулся поздно сегодня. За окном льёт дождь. Меня разбудил звонок.", "staticImage": "img/intro.jpg", "nextId": "Phone" },
 
     {
-      "id": "Naming",
+      "id": "Phone",
       "type": "scene",
       "speaker": "ГГ",
-      "text": "Где мне найти вдохновение?",
+      "text": "Зазвонил телефон.",
       "choices": [
-        { "id": "a", "label": "Перебирать идеи в голове, пытаясь найти 'ту самую'.", "nextId": "ms_end" },
-        { "id": "b", "label": "Поискать идеи в интернете. IN PROGRESS", "nextId": "pc_search_end" },
-        { "id": "c", "label": "Созвониться со своим 'сквадом' и устроить массовый 'брейншторм'.", "nextId": "discord_end" }
+        { "id": "a", "label": "НЕ брать трубку... Вдруг мошенники, да и я спать хочу...", "nextId": "Canceled_call" },
+        { "id": "b", "label": "Поднять трубку", "nextId": "Picked_call" }
       ]
     },
 
     {
-      "id": "ms_end",
+      "id": "Canceled_call",
       "type": "info",
       "speaker": "ГГ",
-      "text": "Я сел на диван и начал прикидывать варианты.",
+      "text": "Телефон продолжает разрываться.",
       "cooldownPoolId": "mindset",
-      "nextId": "__next_day__"
+      "nextId": "Canceled_call_1"
     },
     {
-      "id": "pc_search_end",
+      "id": "Picked_call",
       "type": "info",
       "speaker": "ГГ",
-      "text": "Сел за компьютер, запустил браузер и начал искать...",
+      "text": "Поднять трубку.",
       "cooldownPoolId": "ps_search",
       "nextId": "__next_day__"
     },
-    {
-      "id": "discord_end",
-      "type": "info",
-      "speaker": "ГГ",
-      "text": "Зашёл в войс, тегнул сервер. Ну, поехали...",
-      "cooldownPoolId": "discord",
-      "nextId": "__next_day__"
-    },
+	{ "id": "Canceled_call_1", "type": "info", "speaker": "ГГ", "text": "Кто-то очень назойлив... Ладно, отвечу. Сна всё равно уже ни в одном глазу...", "nextId": "Picked_call" },
+
 
     { "id": "d02", "type": "info", "speaker": "ГГ", "text": "День 2. Первые клиенты начинают проявлять интерес.", "staticImage": "img/ui_main.jpg", "nextId": "d02_scene1" },
     {
@@ -181,8 +167,8 @@
       "speaker": "ГГ",
       "text": "Как реагировать на запрос реквизитов?",
       "choices": [
-        { "label": "Сразу отправить всё", "effects": { "reputation": 1 }, "sound": "sounds/events/rep_plus.mp3", "nextId": "d02_end_1" },
-        { "label": "Задержать — не готов ещё", "effects": { "reputation": -1 }, "sound": "sounds/events/rep_minus.mp3", "nextId": "d02_end_2" }
+        { "label": "Сразу отправить всё", "effects": { "reputation": 2 }, "sound": "sounds/events/rep_plus.mp3", "nextId": "d02_end_1" },
+        { "label": "Задержать — не готов ещё", "effects": { "reputation": -3 }, "sound": "sounds/events/rep_minus.mp3", "nextId": "d02_end_2" }
       ]
     },
     { "id": "d02_end_1", "type": "info", "speaker": "Система", "text": "Клиент доволен оперативностью.", "sound": "sounds/events/rep_plus.mp3", "nextId": "__next_day__" },

@@ -88,3 +88,26 @@ body{
 
 /* Hide resource cards entirely */
 .cards { display: none !important; }
+
+
+/* Ensure interactive blocks are above hero image */
+.story, .bubble, .choices, .continue, .ending { position: relative; z-index: 2; }
+.hero { position: relative; z-index: 1; }
+.choices button { touch-action: manipulation; }
+
+
+
+/* === Click fix patch === */
+.choices button {
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+}
+#static-image, .hero {
+  pointer-events: none;
+}
+
+
+/* lock continue on ending */
+.force-ending #continue{display:none !important}
+.ending{position:relative;z-index:5}

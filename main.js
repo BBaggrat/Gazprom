@@ -50,61 +50,27 @@ var ENDINGS = [
     condition: function(score){ return score >= 4; } }
 ];
 function pickEndingByScore(score){
-  // Репутация задаёт концовку: <3 — плохая, >3 — хорошая, =3 — нейтральная
-  var rep = 0;
-  try {
-    rep = Number((state && state.resources && state.resources.reputation) || 0);
-    if (isNaN(rep)) rep = 0;
-  } catch(e){ rep = 0; }
-  if (rep < 1) return ENDINGS[0];
-  if (rep > 4) return ENDINGS[2];
-  return ENDINGS[1];
+  for (var i=0;i<ENDINGS.length;i++){ if (ENDINGS[i].condition(score)) return ENDINGS[i]; }
+  return ENDINGS[1]; // fallback neutral
 }
 function renderHiddenScoreEnding(){
   var end = $("#ending");
   if (!end) return;
-
-  try { state.forceEnding = true; localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch(e){}
-  var root = document.getElementById('app'); if (root) root.classList.add('force-ending');
-  var cont = $("#continue");
-  if (cont) {
-    cont.classList.add("hidden");
-    cont.style.display = "none";
-    var btn = cont.querySelector("button");
-    if (btn) { btn.disabled = true; btn.setAttribute("aria-disabled", "true"); btn.style.pointerEvents = "none"; }
-  }
-
   var score = getHiddenScore();
   var e = pickEndingByScore(score);
-
   end.classList.remove("hidden");
-  end.innerHTML =
-    '<div class="ending-card">' +
-      '<h2>' + e.title + '</h2>' +
-      '<p>' + e.text + '</p>' +
-      '<button id="restartBtn" class="primary">Начать заново</button>' +
-    '</div>';
-
+  end.innerHTML = '<div class="ending-card"><h2>'+ e.title +'</h2><p>'+ e.text +'</p><button id="restartBtn" class="primary">Начать заново</button></div>';
   var rb = $("#restartBtn");
   if (rb) rb.onclick = function(){
-    try {
-      state.forceEnding = false;
-      var root = document.getElementById('app'); if (root) root.classList.remove('force-ending');
-      var end = $("#ending"); if (end) end.classList.add("hidden");
-      var cont = $("#continue");
-      if (cont) {
-        cont.classList.remove("hidden");
-        cont.style.display = "";
-        var btn = cont.querySelector("button");
-        if (btn) { btn.disabled = false; btn.removeAttribute("aria-disabled"); btn.style.pointerEvents = ""; }
-      }
-    } catch(e){}
-
     setHiddenScore(0);
+    // Soft reset: mimic reset button behaviour if present
     var r = $("#btn-reset");
-    if (r && typeof r.onclick === "function") r.onclick();
-    else if (typeof restart === "function") restart();
-    else if (typeof render === "function") render();
+    if (r && typeof r.onclick === "function") { r.onclick(); }
+    else {
+      // Fallback full reload of state if API surface differs
+      if (typeof restart === "function") restart();
+      else if (typeof render === "function") render();
+    }
   };
 }
 
@@ -300,7 +266,21 @@ function init() {
 
 function bindUI() {
   var c = $("#btn-continue");
-  if (c) c.onclick = function () { ensureBackground(); playClick(); goNextContinue(); };
+  if (c) c.onclick = function () { ensureBackground(); playClick(); goNextContinue(); 
+
+  // ensure link slot under the main image
+  try {
+    var imgWrap = document.getElementById('image-wrap') || document.getElementById('image') ||
+                  document.querySelector('.image') || document.querySelector('.story .picture') ||
+                  document.querySelector('.story');
+    if (imgWrap && !document.getElementById('imageLink')) {
+      var linkDiv = document.createElement('div');
+      linkDiv.id = 'imageLink';
+      linkDiv.className = 'image-link hidden';
+      if (imgWrap.parentNode) imgWrap.parentNode.insertBefore(linkDiv, imgWrap.nextSibling);
+    }
+  } catch(e){}
+};
 
   var choices = $("#choices");
   if (choices) {
@@ -408,11 +388,6 @@ function resolveNextEventId(currentId, marker) {
 }
 
 function advanceDay() {
-  if (!getDayObj(state.day + 1)) {
-    state.dayCompleted = true;
-    try { renderHiddenScoreEnding(); } catch (e) { console.error(e); }
-    return;
-  }
   state.day = Math.min(14, state.day + 1);
   state.dayCompleted = false;
   state.nodeId = state.nextDayStartNodeId || getDayStartNode(state.day);
@@ -422,13 +397,30 @@ function advanceDay() {
 function isInCooldown() { return state.cooldownUntilISO && new Date(state.cooldownUntilISO) > new Date(); }
 
 // ---------- render
-function render() {
-  if (state && state.forceEnding) {
-    var cont = $("#continue"); if (cont) { cont.classList.add("hidden"); cont.style.display="none"; }
-    var end = $("#ending"); if (end) end.classList.remove("hidden");
+function setImageLink(link) {
+  var slot = document.getElementById("imageLink");
+  if (!slot) return;
+  var url = null, label = null;
+  if (typeof link === "string") { url = link; }
+  else if (link && typeof link === "object") { url = link.url || link.href; label = link.label || link.text; }
+  if (!url || !/^https?:\/\//i.test(url)) {
+    slot.innerHTML = "";
+    slot.classList.add("hidden");
     return;
   }
-var di = $("#day-indicator"); if (di) di.textContent = "День " + state.day + "/14";
+  if (!label) {
+    try { label = new URL(url).host; } catch (e) { label = "Открыть ссылку"; }
+  }
+  slot.innerHTML = '<a class="image-link__a" href="'+ url +'" target="_blank" rel="noopener noreferrer">'+ label +'</a>';
+  slot.classList.remove("hidden");
+}
+function clearImageLink() {
+  var slot = document.getElementById("imageLink");
+  if (slot) { slot.innerHTML = ""; slot.classList.add("hidden"); }
+}
+
+function render() {
+  clearImageLink(); (function(){try{var on=(state&&state.cooldownUntilISO)&&Date.parse(state.cooldownUntilISO)>Date.now();if(on){var pid=state.cooldownPoolId;var pool=(pid&&STORY&&STORY.eventPools)?STORY.eventPools[pid]:null;if(pool&&pool.link) setImageLink(pool.link);}}catch(e){}})(); var di = $("#day-indicator"); if (di) di.textContent = "День " + state.day + "/14";
   updateHud(); renderFeed();
 
   var cd = $("#cooldown"), cdt = $("#cd-time");
@@ -485,20 +477,12 @@ function updateHud() {
 
 function choose(node, ch) {
   clearAllEventsUI();
+  if (typeof ch.impact !== "undefined") { try { addToHiddenScore(ch.impact); } catch(e){} }
 
-  if (typeof ch.impact !== "undefined") {
-    try { addToHiddenScore(ch.impact); } catch(e){}
-  } else if (ch && ch.effects) {
-    var eff = ch.effects || {};
-    var imp = 0;
-    if ((typeof eff.reputation === "number" && eff.reputation !== 0) ||
-        (typeof eff.currency   === "number" && eff.currency   !== 0)) {
-      imp = ((eff.reputation > 0) || (eff.currency > 0)) ? 1 : -1;
-    }
-    if (imp !== 0) { try { addToHiddenScore(imp); } catch(e){} }
+  if (ch.effects) {
+    applyEffects(ch.effects);
+//     appendFeed("Выбор: " + ch.label, (ch.effects && ch.effects.currency) || 0, (ch.effects && ch.effects.reputation) || 0);
   }
-
-  if (ch.effects) { applyEffects(ch.effects); }
   if (ch.staticImage) setStaticImage(ch.staticImage);
   if (ch.sound) playSfx(ch.sound);
 
@@ -527,9 +511,6 @@ function applyEffects(eff) {
 }
 
 function goNextContinue() {
-  if (state && state.forceEnding) return;
-  var end = $("#ending"); if (end && !end.classList.contains("hidden")) return;
-
   var marker = $("#continue").dataset.nextId;
 
   if (marker && marker.indexOf("__next_event__") === 0) {
@@ -537,29 +518,17 @@ function goNextContinue() {
     render();
     return;
   }
-  if (marker && marker.indexOf("__next_day__::") === 0) {
-    state.cooldownPoolId = marker.split("::")[1];
-    marker = "__next_day__";
-  }
-  if (marker && marker.indexOf("__next_day__:") === 0) {
-    state.nextDayStartNodeId = marker.split(":")[1];
-    marker = "__next_day__";
-  }
+  if (marker && marker.indexOf("__next_day__::") === 0) { state.cooldownPoolId = marker.split("::")[1]; marker = "__next_day__"; }
+  if (marker && marker.indexOf("__next_day__:") === 0) { state.nextDayStartNodeId = marker.split(":")[1]; marker = "__next_day__"; }
 
   if (marker === "__next_day__") {
-    var noNext = !getDayObj(state.day + 1);
-    if (noNext) {
-      state.dayCompleted = true;
-      try { renderHiddenScoreEnding(); } catch (e) { console.error(e); }
-      return;
-    }
     state.dayCompleted = true;
     var now = Date.now();
     state.cooldownUntilISO = new Date(now + getCooldownMsForDay(state.day)).toISOString();
-    state.nextIdleAtISO   = new Date(now + getIdleIntervalMsForDay(state.day)).toISOString();
+    state.nextIdleAtISO = new Date(now + getIdleIntervalMsForDay(state.day)).toISOString();
     state.cooldownOnceSeenIds = [];
     state.cooldownOnceSeenChains = [];
-    state.idleCooldowns = {};
+    state.idleCooldowns = {}; // сброс мягких кулдаунов
     state.breakEventFired = false;
     state.idleContext = { chainNextId: null, chainId: null, subPool: null, subLeft: 0 };
     appendFeed("День завершён. Перерыв начался…", 0, 0);
@@ -572,8 +541,7 @@ function goNextContinue() {
 // ---------- ticker
 function startTicker() { setInterval(tick, 1000); }
 function tick() {
-  if (state && state.forceEnding) return;
-if (state.cooldownUntilISO && new Date(state.cooldownUntilISO) <= new Date()) {
+  if (state.cooldownUntilISO && new Date(state.cooldownUntilISO) <= new Date()) {
     if (!state.breakEventFired) {
       var be = getDayBreakEvent(state.day);
       if (be) {
@@ -661,6 +629,7 @@ function filterAvailableEvents(pool) {
 function fireIdleEvent(chosen) {
   if (chosen.effects) applyEffects(chosen.effects);
   if (chosen.staticImage) setStaticImage(chosen.staticImage);
+  (function(){var L=null; if(chosen.link) L=chosen.link; else { try{ if(state.cooldownPoolId&&STORY.eventPools&&STORY.eventPools[state.cooldownPoolId]){var p=STORY.eventPools[state.cooldownPoolId]; if(p&&p.link) L=p.link;}}catch(e){} } if(L) setImageLink(L); else clearImageLink();})();
   if (chosen.sound) playSfx(chosen.sound);
   appendFeed(
     chosen.text,

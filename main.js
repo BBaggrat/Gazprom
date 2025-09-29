@@ -74,6 +74,37 @@ function renderHiddenScoreEnding(){
   };
 }
 
+
+
+function renderNodeEnding(node){
+  try { hideNextButton(true); } catch(e){}
+
+  // Скрываем пузырь и варианты, чтобы не было мусора от прошлого узла
+  try {
+    var bubble = document.querySelector('.bubble'); if (bubble) bubble.classList.add('hidden');
+    var choices = document.getElementById('choices'); if (choices) { choices.innerHTML = ''; choices.classList.add('hidden'); }
+    var cont = document.getElementById('continue'); if (cont) cont.classList.add('hidden');
+  } catch(e){}
+
+  try {
+    var end = $("#ending");
+    if (!end) return;
+    var title = (node && node.title) || "Концовка";
+    var text  = (node && node.text)  || "";
+    end.classList.remove("hidden");
+    end.innerHTML = '<div class="ending-card"><h2>'+ title +'</h2><p>'+ text +'</p><div class="ending-actions"><button id="restartBtn" class="primary">Начать заново</button></div></div>';
+    var rb = $("#restartBtn");
+    if (rb) rb.onclick = function(){
+      // попытаться вызвать штатный reset, если он есть
+      var r = $("#btn-reset");
+      if (r && typeof r.onclick === "function") { r.onclick(); }
+      else if (typeof restart === "function") { restart(); }
+      else if (typeof renderHiddenScoreEnding === "function") { setHiddenScore(0); renderHiddenScoreEnding(); }
+      else { try { location.reload(); } catch(e){} }
+    };
+  } catch(e){}
+}
+
 var STORY = null;
 
 // ---------- helpers for "end_day" vs "days"
@@ -419,6 +450,48 @@ function clearImageLink() {
   if (slot) { slot.innerHTML = ""; slot.classList.add("hidden"); }
 }
 
+
+// === Helpers to control ending and continue button ===
+function hideNextButton(hide) {
+  try {
+    const selectors = [
+      '#btn-next', '#btn-continue', '#next', '#continue',
+      '[data-role="continue"]', '[data-action="continue"]',
+      '.btn-next', '.next-button', '.continue', '.feed-continue', '.actions .primary', '.actions .btn'
+    ];
+    let hit = false;
+    for (var s of selectors) {
+      var els = document.querySelectorAll(s);
+      els.forEach(function(el){
+        hit = true;
+        var target = el.closest('.feed-row, .row, .wrap, .actions') || el;
+        if (hide) { target.classList.add('hidden'); target.style.display = 'none'; }
+        else { target.classList.remove('hidden'); target.style.display = ''; }
+      });
+    }
+    if (!hit) {
+      document.querySelectorAll('button, .btn, .button').forEach(function(el){
+        var t = (el.textContent || '').trim().toLowerCase();
+        if (t === 'далее' || t === 'continue') {
+          var target = el.closest('.feed-row, .row, .wrap, .actions') || el;
+          if (hide) { target.classList.add('hidden'); target.style.display = 'none'; }
+          else { target.classList.remove('hidden'); target.style.display = ''; }
+        }
+      });
+    }
+  } catch(e) {}
+}
+function hideEnding() {
+  try {
+    var end = document.querySelector('#ending');
+    if (end) {
+      end.classList.add('hidden');
+      end.innerHTML = '';
+    }
+    document.body.classList.remove('force-ending');
+  } catch(e) {}
+}
+
 function render() {
   clearImageLink(); (function(){try{var on=(state&&state.cooldownUntilISO)&&Date.parse(state.cooldownUntilISO)>Date.now();if(on){var pid=state.cooldownPoolId;var pool=(pid&&STORY&&STORY.eventPools)?STORY.eventPools[pid]:null;if(pool&&pool.link) setImageLink(pool.link);}}catch(e){}})(); var di = $("#day-indicator"); if (di) di.textContent = "День " + state.day + "/14";
   updateHud(); renderFeed();
@@ -428,6 +501,10 @@ function render() {
   else { cd.classList.add("hidden"); }
 
   var node = findNode(state.nodeId); if (!node) return;
+  // Если это концовка — не дублируем текст в пузыре, рисуем только карточку финала
+  if (node.type === 'ending') { renderNodeEnding(node); return; }
+  try { hideEnding(); hideNextButton(false); } catch(e){}
+  try { var b = document.querySelector('.bubble'); if (b) b.classList.remove('hidden'); var chs = document.getElementById('choices'); if (chs) chs.classList.remove('hidden'); } catch(e){}
 
   if (node.staticImage) setStaticImage(node.staticImage);
   if (node.sound) playSfx(node.sound);
@@ -459,9 +536,7 @@ function render() {
       cont.dataset.nextId = node.nextId;
       contBtn.textContent = node.label || "Далее";
     }
-    if (node.type === "ending") {
-      var end = $("#ending"); end.classList.remove("hidden"); end.innerHTML = "<div>" + (node.text || "Финал") + "</div>";
-    }
+    if (node.type === "ending") { renderNodeEnding(node); return; }
   } else {
     var cc = getCooldownCopy();
     $("#speaker").textContent = cc.title;

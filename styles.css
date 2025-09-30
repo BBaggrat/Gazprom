@@ -5,8 +5,8 @@
   --card-2:#1d2026;
   --text:#e6e8ee;
   --muted:#9aa3b2;
-  --accent:#6c7bff;
-  --accent-2:#2ec5ff;
+  --accent:#58FFFF;
+  --accent-2:#1919EF;
   --success:#19c37d;
   --danger:#ff6b6b;
   --radius:16px;
@@ -30,7 +30,7 @@ body{
 .chip{padding:6px 10px;border-radius:999px;background:#11131a;color:#c9d1e3;font-size:13px}
 .icon-btn{margin-left:auto;background:#11131a;border:1px solid #242731;border-radius:12px;color:var(--text);padding:6px 10px;cursor:pointer}
 .icon-btn + .icon-btn{margin-left:8px}
-.icon-btn.danger{border-color:#3a1f24;background:#1a0f12;color:#ff8888}
+.icon-btn.danger{border-color:#3a1f24;background:#1919EF;color:#58FFFF}
 .icon-btn.danger:hover{background:#201217}
 
 /* CARDS */
@@ -54,12 +54,12 @@ body{
 .story{margin-top:8px}
 .hero{width:100%;height:180px;object-fit:cover;border-radius:14px;border:1px solid #242731}
 .bubble{margin-top:10px;background:var(--card-2);border:1px solid #242731;border-radius:14px;padding:12px}
-.speaker{color:#cbd3ff;font-weight:600;margin-bottom:6px}
+.speaker{color:#3CFFB9;font-weight:600;margin-bottom:6px}
 .text{color:#e6e8ee;font-size:15px;line-height:1.5}
 
 .choices{display:grid;gap:10px;margin-top:12px}
 .choices button{
-  padding:12px 14px;border-radius:14px;border:1px solid #2a2e39;background:#12141a;color:var(--text);
+  padding:12px 14px;border-radius:14px;border:1px solid #000000;background:#12141a;color:var(--text);
   cursor:pointer;transition:transform .05s ease, background .2s
 }
 .choices button:hover{background:#171a22}
@@ -88,3 +88,60 @@ body{
 
 /* Hide resource cards entirely */
 .cards { display: none !important; }
+
+
+/* Ensure interactive blocks are above hero image */
+.story, .bubble, .choices, .continue, .ending { position: relative; z-index: 2; }
+.hero { position: relative; z-index: 1; }
+.choices button { touch-action: manipulation; }
+
+
+
+/* === Click fix patch === */
+.choices button {
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
+}
+#static-image, .hero {
+  pointer-events: none;
+}
+
+
+/* link row styled like gray cards */
+
+
+
+
+
+
+/* === Global CTA link styles (centered) === */
+:root{
+  --cta-link: #58FFFF;
+  --cta-link-hover: #a7c4ff;
+}
+.image-link{
+  margin-top:12px;
+  padding:12px 14px;
+  background: var(--card-bg, #1f232a);
+  border-radius:12px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.image-link.hidden{ display:none; }
+.image-link__a{
+  color: var(--cta-link);
+  text-decoration: underline;
+  display:inline-block;
+  line-height:1.3;
+  word-break: break-word;
+  outline: none;
+}
+.image-link__a:hover,
+.image-link__a:focus-visible{
+  color: var(--cta-link-hover);
+  text-decoration-thickness: from-font;
+}
+/* === /Global CTA link styles === */

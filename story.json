@@ -18,7 +18,7 @@
 
   "eventPools": {
     "Picked_call_event": {
-      "cooldownTitle": "Медленно просыпаюсь от звонка",
+      "cooldownTitle": "Еле просыпаюсь от звонка",
       "cooldownText": "Телефон звонит не останавливаясь.",
       "cooldownMin": 1,
       "idleIntervalSec": 5,
@@ -49,10 +49,12 @@
       "cooldownText": "Одна голова - хорошо. Но две - лучше.",
       "cooldownMin": 1,
       "idleIntervalSec": 5,
-      "link": {
-        "url": "https://www.gazprombank.ru/business/account-open/#ssmmm",
-        "label": "Посмотреть условия рассчетного счета."
-      },
+"links": 
+  {
+    "url": "https://www.gazprombank.ru/business/all-credits/",
+    "label": "Посмотреть условия кредитования."
+  },
+
       "events": [
         { "id": "Cred_1", "text": "Рассматриваем продуктовые предложения." },
         { "id": "Cred_2", "text": "Изучаем Газпромбанк." },
@@ -131,13 +133,13 @@
     { "id": "Welcome", "type": "info", "speaker": "Антон", "text": "Сколько себя помню, у меня всегда была мечта...", "label": "Далее", "staticImage": "img/Anton.jpg", "nextId": "Welcome1" },
     { "id": "Welcome1", "type": "info", "speaker": "Антон", "text": "Я с детства любил игры. ","staticImage": "img/Anton.jpg", "nextId": "Welcome2" },
     { "id": "Welcome2", "type": "info", "speaker": "Антон", "text": "Меня увлекал процесс... соревнование... драйв.", "staticImage": "img/Anton.jpg", "nextId": "Welcome3" },
-    { "id": "Welcome3", "type": "info", "speaker": "Антон", "text": "Я хочу связать свою жизнь с этим, но киберспорт - слишком сложная вещь для меня.", "staticImage": "img/Anton.jpg", "nextId": "Welcome4" },
+    { "id": "Welcome3", "type": "info", "speaker": "Антон", "text": "Я хочу связать свою жизнь с этим, но киберспорт - слишком сложная вещь для меня. Может открыть свой компьютерный клуб?", "staticImage": "img/Anton.jpg", "nextId": "Welcome4" },
     { "id": "Welcome4", "type": "info", "speaker": "Антон", "text": "Как было бы здорово собрать всех своих друзей под одной крышей и сыграть всем вместе.", "staticImage": "img/Anton.jpg", "nextId": "Welcome5" },
     { "id": "Welcome5", "type": "info", "speaker": "Антон", "text": "Как в старые добрые...", "staticImage": "img/Anton.jpg", "nextId": "Welcome6" },
     { "id": "Welcome6", "type": "info", "speaker": "Антон", "text": "Хорошая мечта.", "staticImage": "img/Anton.jpg", "nextId": "Welcome7" },
     { "id": "Welcome7", "type": "info", "speaker": "Антон", "text": "В конце концов - мечты сбываются, верно?", "staticImage": "img/Anton.jpg", "nextId": "Welcome8" },
     { "id": "Welcome8", "type": "info", "speaker": "Антон", "text": "Команда 1221 представляет.", "staticImage": "img/Anton.jpg", "nextId": "Welcome9" },
-    { "id": "Welcome9", "type": "info", "speaker": "Антон", "text": "За окном льёт дождь. Не хотел вставать в такую погоду, но меня разбудил зазвонивший телефон.",  "staticImage": "img/Anton.jpg", "nextId": "Phone" },
+    { "id": "Welcome9", "type": "info", "speaker": "Антон", "text": "За окном льёт противный мелкий дождь. Не хотел вставать в такую погоду, но меня разбудил зазвонивший телефон.",  "staticImage": "img/Anton.jpg", "nextId": "Phone" },
 
     {
       "id": "Phone",
@@ -202,7 +204,7 @@
     { "id": "Telephone3", "type": "info", "speaker": "Иван", "text": "- Как чего, ты забыл? Мы договорились, что сегодня созвонимся - у тебя была супер-идея!", "staticImage": "img/Ivan.jpg", "nextId": "Telephone4" },
     { "id": "Telephone4", "type": "info", "speaker": "Антон", "text": "Черт. Кажется, я рассказал ему о своей идее с клубом... Но, быть может, это и не плохо. У него больше опыта в таких делах. \n В конце концов, он ведь работает в банке", "staticImage": "img/Anton.jpg", "nextId": "Telephone5" },
     { "id": "Telephone5", "type": "info", "speaker": "Антон", "text": "- А, ты об этом... Слушай, я ведь просто так закинул...", "staticImage": "img/Anton.jpg", "nextId": "Telephone6" },
-    { "id": "Telephone6", "type": "info", "speaker": "Иван", "text": "- Да ты что! Прекращай, ты прав абсолютно! Только вспомни, как здорово было в детстве в компах. Я истосковался по этому, если честно. ёИ нет, я не предлагаю тебе сходить в компы, я о твоей идее! Я всё обдумал, у меня есть план действий...", "staticImage": "img/Ivan.jpg", "nextId": "Telephone7" },
+    { "id": "Telephone6", "type": "info", "speaker": "Иван", "text": "- Да ты что! Прекращай, ты прав абсолютно! Только вспомни, как здорово было в детстве в компах. Я истосковался по этому, если честно. И нет, я не предлагаю тебе сходить в компы, я о твоей идее! Я всё обдумал, у меня есть план действий...", "staticImage": "img/Ivan.jpg", "nextId": "Telephone7" },
     { "id": "Telephone7", "type": "info", "speaker": "Антон", "text": "Ну вот, я влип, рассказал о своей идее человеку, который если вцепится, то не отпустит... У него ещё и план есть...", "staticImage": "img/Anton.jpg", "nextId": "Telephone8" },
     { "id": "Telephone8", "type": "info", "speaker": "Иван", "text": "- Я серьёзно, слушай, мы можем это потянуть. Действительно можем. Сейчас компьютерные клубы достаточно популярны, да и лампово как будет. Ты только представь: откроем клуб, раскрутимся, проведем несколько ивентов... Глядишь может и сеть свою сможем устроить! Представь, что мы играем вместо основной работы! Потом и наших соберём всех...", "staticImage": "img/Ivan.jpg", "nextId": "Telephone9" },
     { "id": "Telephone9", "type": "info", "speaker": "Антон", "text": "Надо что-то ему ответить.", "staticImage": "img/Anton.jpg", "nextId": "Telephone_choise" },

@@ -31,16 +31,16 @@
       ]
     },
 	  "Picked_call_agro_ev": {
-      "cooldownTitle": "Медленно просыпаюсь от звонка",
+      "cooldownTitle": "Недовольно просыпаюсь от звонка",
       "cooldownText": "Телефон звонит не останавливаясь.",
       "cooldownMin": 1,
       "idleIntervalSec": 5,
       "events": [
         { "id": "Picked_call_event_1_agro", "text": "Недовольно пытаюсь открыть глаза." },
         { "id": "Picked_call_event_2_agro", "text": "Не могу найти телефон. Рукой шарю по столику." },
-        { "id": "Picked_call_event_3_agro", "text": "Недовольно ругаюсь про себя." },
-        { "id": "Picked_call_event_4_agro", "text": "Предполагаю, что это мошенники..." },
-        { "id": "Picked_call_event_5_agro", "text": "Зеваю." }
+        { "id": "Picked_call_event_3_agro", "text": "Громко ругаюсь." },
+        { "id": "Picked_call_event_4_agro", "text": "Если это мошенники, то я им не завидую." },
+        { "id": "Picked_call_event_5_agro", "text": "Громко зеваю." }
       ]
     },
 
@@ -49,7 +49,7 @@
       "cooldownText": "Одна голова - хорошо. Но две - лучше.",
       "cooldownMin": 1,
       "idleIntervalSec": 5,
-"links": 
+"link": 
   {
     "url": "https://www.gazprombank.ru/business/all-credits/",
     "label": "Посмотреть условия кредитования."
@@ -68,7 +68,7 @@
 
     "Budjet_events": {
       "cooldownTitle": "Рассматриваем банковские продукты.",
-      "cooldownText": "Ладно, давай посмотрим, что можно сделать. В любом случае, Иван работал в банке. Он точно должен что-то понимать.",
+      "cooldownText": "Ладно, посмотрим, что можно сделать. В любом случае, Иван работал в банке. Он точно должен что-то понимать.",
       "cooldownMin": 1,
       "idleIntervalSec": 5,
 	        "link": {
@@ -198,11 +198,11 @@
       "nextId": "__next_day__"
     },
 	
-    { "id": "Telephone", "type": "info", "speaker": "???", "text": "- Привет! Дружище, пора просыпаться!", "staticImage": "img/main.jpg", "nextId": "Telephone1" },
+    { "id": "Telephone", "type": "info", "speaker": "Иван", "text": "- Привет! Дружище, пора просыпаться!", "staticImage": "img/main.jpg", "nextId": "Telephone1" },
     { "id": "Telephone1", "type": "info", "speaker": "Антон", "text": "Это Иван, мой давний товарищ. Кажется, впервые, я играл по сетке именно с ним, ещё когда был совсем ребёнком. \n Но теперь ему не до игр.", "staticImage": "img/Anton.jpg", "nextId": "Telephone2" },
     { "id": "Telephone2", "type": "info", "speaker": "Антон", "text": "- Привет. Ты чего звонишь вдруг?", "staticImage": "img/Anton.jpg", "nextId": "Telephone3" },
     { "id": "Telephone3", "type": "info", "speaker": "Иван", "text": "- Как чего, ты забыл? Мы договорились, что сегодня созвонимся - у тебя была супер-идея!", "staticImage": "img/Ivan.jpg", "nextId": "Telephone4" },
-    { "id": "Telephone4", "type": "info", "speaker": "Антон", "text": "Черт. Кажется, я рассказал ему о своей идее с клубом... Но, быть может, это и не плохо. У него больше опыта в таких делах. \n В конце концов, он ведь работает в банке", "staticImage": "img/Anton.jpg", "nextId": "Telephone5" },
+    { "id": "Telephone4", "type": "info", "speaker": "Антон", "text": "Я уже и забыл, что рассказал ему о своей идее с клубом... Но, быть может, это и не плохо. У него больше опыта в таких делах. \n В конце концов, он ведь работает в банке", "staticImage": "img/Anton.jpg", "nextId": "Telephone5" },
     { "id": "Telephone5", "type": "info", "speaker": "Антон", "text": "- А, ты об этом... Слушай, я ведь просто так закинул...", "staticImage": "img/Anton.jpg", "nextId": "Telephone6" },
     { "id": "Telephone6", "type": "info", "speaker": "Иван", "text": "- Да ты что! Прекращай, ты прав абсолютно! Только вспомни, как здорово было в детстве в компах. Я истосковался по этому, если честно. И нет, я не предлагаю тебе сходить в компы, я о твоей идее! Я всё обдумал, у меня есть план действий...", "staticImage": "img/Ivan.jpg", "nextId": "Telephone7" },
     { "id": "Telephone7", "type": "info", "speaker": "Антон", "text": "Ну вот, я влип, рассказал о своей идее человеку, который если вцепится, то не отпустит... У него ещё и план есть...", "staticImage": "img/Anton.jpg", "nextId": "Telephone8" },
@@ -271,19 +271,18 @@
         { "id": "b", "label": "Бюджет и так страдает. Лишние траты нам не нужны.", "nextId": "WalkNotOk" }
       ]
     },
-	{ "id": "Walk_ok", "type": "info", "speaker": "Продавец", "text": "- В сырном?", "staticImage": "img/main.jpg", "nextId": "Walk_ok_1" },	
 		
 		{
-      "id": "Walk_ok_1",
+      "id": "Walk_ok",
       "type": "scene",
-      "speaker": "Антон",
-      "text": "Купить шаурму?",
+      "speaker": "Продавец",
+      "text": "В сырном лаваше?",
       "choices": [
         { "id": "a", "label": "Да.", "nextId": "Walk_ok_2_cheese" },
         { "id": "b", "label": "Нет.", "nextId": "Walk_not_ok_2_cheese" }
       ]
     },
-	{ "id": "Walk_ok_2_cheese", "type": "info", "speaker": "Антон", "text": "- Отлично, всегда вкуснее в сырном.", "staticImage": "img/Anton.jpg", "nextId": "Walk_ok_3_cheese" },	
+	{ "id": "Walk_ok_2_cheese", "type": "info", "speaker": "Антон", "text": "Отлично, всегда вкуснее в сырном.", "staticImage": "img/Anton.jpg", "nextId": "Walk_ok_3_cheese" },	
 	{ "id": "Walk_not_ok_2_cheese", "type": "info", "speaker": "Антон", "text": "- Нет, спасибо.", "staticImage": "img/Anton.jpg", "nextId": "Walk_not_ok_3_cheese" },	
 	
 	{ "id": "Walk_ok_3_cheese", "type": "info", "speaker": "Антон", "text": "Неподалёку от дома я наткнулся на вывеску - местный компьютерный клуб проводит кибертурнир по Контре. Может залететь... почему бы просто не зайти осмотреться? Разведаю обстановку.", "staticImage": "img/Anton.jpg", "nextId": "Walk_ok_5_cheese" },	

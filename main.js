@@ -428,7 +428,7 @@ renderFeed();
   state.dayCompleted = false;
   state.nodeId = state.nextDayStartNodeId || getDayStartNode(state.day);
   state.nextDayStartNodeId = null;
-  appendFeed("Новый день: #" + state.day, 0, 0);
+  appendFeed("Новый этап: #" + state.day, 0, 0);
 }
 function isInCooldown() { return state.cooldownUntilISO && new Date(state.cooldownUntilISO) > new Date(); }
 
@@ -498,7 +498,7 @@ function hideEnding() {
 }
 
 function render() {
-  clearImageLink(); (function(){try{var on=(state&&state.cooldownUntilISO)&&Date.parse(state.cooldownUntilISO)>Date.now();if(on){var pid=state.cooldownPoolId;var pool=(pid&&STORY&&STORY.eventPools)?STORY.eventPools[pid]:null;if(pool&&pool.link) setImageLink(pool.link);}}catch(e){}})(); var di = $("#day-indicator"); if (di) di.textContent = "День " + state.day + "/14";
+  clearImageLink(); (function(){try{var on=(state&&state.cooldownUntilISO)&&Date.parse(state.cooldownUntilISO)>Date.now();if(on){var pid=state.cooldownPoolId;var pool=(pid&&STORY&&STORY.eventPools)?STORY.eventPools[pid]:null;if(pool&&pool.link) setImageLink(pool.link);}}catch(e){}})(); var di = $("#day-indicator"); if (di) di.textContent = "Этап " + state.day + "/6";
   updateHud(); renderFeed();
 
   var cd = $("#cooldown"), cdt = $("#cd-time");
@@ -611,7 +611,7 @@ function goNextContinue() {
     state.idleCooldowns = {}; // сброс мягких кулдаунов
     state.breakEventFired = false;
     state.idleContext = { chainNextId: null, chainId: null, subPool: null, subLeft: 0 };
-    appendFeed("День завершён. Перерыв начался…", 0, 0);
+    appendFeed("Антон принял решение. Теперь ждем последствий...", 0, 0);
     render(); localStorage.setItem(SAVE_KEY, JSON.stringify(state));
   } else {
     state.nodeId = marker; render();

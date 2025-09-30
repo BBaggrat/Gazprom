@@ -21,7 +21,7 @@
       "cooldownTitle": "Медленно просыпаюсь от звонка",
       "cooldownText": "Телефон звонит не останавливаясь.",
       "cooldownMin": 1,
-      "idleIntervalSec": 30,
+      "idleIntervalSec": 5,
       "events": [
         { "id": "Picked_call_event_1", "text": "Пытаюсь открыть глаза." },
         { "id": "Picked_call_event_2", "text": "Не могу найти телефон. Рукой шарю по столику." },
@@ -34,7 +34,7 @@
       "cooldownTitle": "Медленно просыпаюсь от звонка",
       "cooldownText": "Телефон звонит не останавливаясь.",
       "cooldownMin": 1,
-      "idleIntervalSec": 30,
+      "idleIntervalSec": 5,
       "events": [
         { "id": "Picked_call_event_1_agro", "text": "Недовольно пытаюсь открыть глаза." },
         { "id": "Picked_call_event_2_agro", "text": "Не могу найти телефон. Рукой шарю по столику." },

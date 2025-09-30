@@ -30,6 +30,19 @@
         { "id": "Picked_call_event_5", "text": "Зеваю." }
       ]
     },
+	  "Picked_call_agro_ev": {
+      "cooldownTitle": "Медленно просыпаюсь от звонка",
+      "cooldownText": "Телефон звонит не останавливаясь.",
+      "cooldownMin": 1,
+      "idleIntervalSec": 30,
+      "events": [
+        { "id": "Picked_call_event_1", "text": "Недовольно пытаюсь открыть глаза." },
+        { "id": "Picked_call_event_2", "text": "Не могу найти телефон. Рукой шарю по столику." },
+        { "id": "Picked_call_event_3", "text": "Недовольно ругаюсь про себя." },
+        { "id": "Picked_call_event_4", "text": "Предполагаю, что это мошенники..." },
+        { "id": "Picked_call_event_5", "text": "Зеваю." }
+      ]
+    },
 
     "Credit_events": {
       "cooldownTitle": "Обсуждаем наши ресурсы.",
@@ -45,11 +58,10 @@
         { "id": "Cred_2", "text": "Ищем в интернете о продуктах." },
         { "id": "Cred_3", "text": "Изучаем Газпромбанк." },
         { "id": "Cred_4", "text": "Собираем список продуктов для бизнеса." },
-        { "id": "Cred_5", "text": "Идем за шаурмой." },
         { "id": "Cred_6", "text": "Спорим о необходимой сумме." },
         { "id": "Cred_7", "text": "Открываем рассчетный счет.", "chain": "Credit_chain1", "next": "Cred_8", "once": true },
-        { "id": "Cred_8", "text": "Прикидываем необходимую сумму.", "chain": "Credit_chain1", "next": "Cred_9", "once": true },
-        { "id": "Cred_9", "text": "Берем кредит.", "chain": "Credit_chain1", "once": true }
+        { "id": "Cred_8", "text": "Прикидываем необходимую сумму.", "inChain": "Credit_chain1", "next": "Cred_9", "once": true },
+        { "id": "Cred_9", "text": "Берем кредит.", "inChain": "Credit_chain1", "once": true }
       ]
     },
 
@@ -73,7 +85,8 @@
   "end_day": [
     { "day": 1, "startNodeId": "Welcome" },
     { "day": 2, "startNodeId": "Telephone" },
-    { "day": 3, "startNodeId": "Credit" }
+    { "day": 3, "startNodeId": "Credit" },
+	{ "day": 4, "startNodeId": "Walk" }
   ],
 
   "nodes": [
@@ -107,7 +120,7 @@
       "cooldownPoolId": "Picked_call_event",
       "nextId": "Canceled_call_1"
     },
-    { "id": "Canceled_call_1", "type": "info", "speaker": "Антон", "text": "Кто-то очень назойлив. Раз меня разбудили, выскажу все недовольство.", "nextId": "Picked_call" },
+    { "id": "Canceled_call_1", "type": "info", "speaker": "Антон", "text": "Кто-то очень назойлив. Раз меня разбудили, выскажу все недовольство.", "nextId": "Picked_call_agro" },
 
     {
       "id": "Picked_call",
@@ -118,6 +131,16 @@
         { "id": "a", "label": "Поднять трубку", "nextId": "Picked_call_ev" }
       ]
     },
+	
+	  {
+      "id": "Picked_call_agro",
+      "type": "scene",
+      "speaker": "Антон",
+      "text": "Выбора нет...",
+      "choices": [
+        { "id": "a", "label": "Недовольно однять трубку", "nextId": "Picked_call_agro_2" }
+      ]
+    },
     {
       "id": "Picked_call_ev",
       "type": "info",
@@ -126,7 +149,15 @@
       "cooldownPoolId": "Picked_call_event",
       "nextId": "__next_day__"
     },
-
+{
+      "id": "Picked_call_agro_2",
+      "type": "info",
+      "speaker": "Антон",
+      "text": "Поднимаю трубку",
+      "cooldownPoolId": "Picked_call_agro_ev",
+      "nextId": "__next_day__"
+    },
+	
     { "id": "Telephone", "type": "info", "speaker": "???", "text": "- Привет! Дружище, пора просыпаться!", "staticImage": "img/ui_main.jpg", "nextId": "Telephone1" },
     { "id": "Telephone1", "type": "info", "speaker": "Антон", "text": "Это Иван, мой давний товарищ. Кажется, впервые, я играл по сетке именно с ним, ещё когда был совсем ребёнком. \n Но теперь ему не до игр.", "staticImage": "img/ui_main.jpg", "nextId": "Telephone2" },
     { "id": "Telephone2", "type": "info", "speaker": "Антон", "text": "- Привет. Ты чего звонишь вдруг?", "staticImage": "img/ui_main.jpg", "nextId": "Telephone3" },
@@ -184,7 +215,51 @@
     { "id": "Credit7", "type": "info", "speaker": "Иван", "text": "- Отлично, давай платить каждый месяц безумные проценты.", "staticImage": "img/ui_main.jpg", "nextId": "Credit8" },
     { "id": "Credit8", "type": "info", "speaker": "Иван", "text": "- Не такие уж и безумные. К тому же, вряд ли у знакомых наберется необходимая сумма.", "staticImage": "img/ui_main.jpg", "nextId": "Credit9" },
     { "id": "Credit9", "type": "info", "speaker": "Иван", "text": "- Откроем рассчетный счет, предоставим все документы. И спокойненько начнем открываться.", "staticImage": "img/ui_main.jpg", "nextId": "Credit10" },
-    { "id": "Credit10", "type": "info", "speaker": "Иван", "text": "- Ладно... Давай попробуем.", "staticImage": "img/ui_main.jpg", "cooldownPoolId": "Credit_events", "nextId": "__next_day__" }
+    { "id": "Credit10", "type": "info", "speaker": "Иван", "text": "- Ладно... Давай попробуем.", "staticImage": "img/ui_main.jpg", "cooldownPoolId": "Credit_events", "nextId": "__next_day__" },
+	
+	{ "id": "Walk", "type": "info", "speaker": "Иван", "text": "Мы отправили все необходимые заявки.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_1" },
+	{ "id": "Walk_1", "type": "info", "speaker": "Иван", "text": "Отлично, теперь наши шансы на открытие клуба увеличились.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_2" },
+	{ "id": "Walk_2", "type": "info", "speaker": "Иван", "text": "После таких решений определенно надо прогуляться.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_3" },
+	{ "id": "Walk_3", "type": "info", "speaker": "Иван", "text": "Выйдя из дома, я заметил ларек с шаурмой. После всех решений я определенно проголодался.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_4" },
+	{
+      "id": "Walk_4",
+      "type": "scene",
+      "speaker": "Антон",
+      "text": "Купить шаурму?",
+      "choices": [
+        { "id": "a", "label": "Неплохая идея. Чуть подкрепиться определенно надо.", "nextId": "Walk_ok" },
+        { "id": "b", "label": "Бюджет и так срадает. Лишние траты нам не нужны.", "nextId": "WalkNotOk" }
+      ]
+    },
+	{ "id": "Walk_ok", "type": "info", "speaker": "Продавец", "text": "- В сырном?", "staticImage": "img/ui_main.jpg", "nextId": "Walk_ok_1" },	
+		
+		{
+      "id": "Walk_ok_1",
+      "type": "scene",
+      "speaker": "Антон",
+      "text": "Купить шаурму?",
+      "choices": [
+        { "id": "a", "label": "Да.", "nextId": "Walk_ok_2_cheese" },
+        { "id": "b", "label": "Нет.", "nextId": "Walk_not_ok_2_cheese" }
+      ]
+    },
+	{ "id": "Walk_ok_2_cheese", "type": "info", "speaker": "Антон", "text": "- Отлично, всегда вкуснее в сырном.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_ok_3_cheese" },	
+	{ "id": "Walk_not_ok_2_cheese", "type": "info", "speaker": "Антон", "text": "- Нет, спасибо.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_not_ok_3_cheese" },	
+	
+	{ "id": "Walk_ok_3_cheese", "type": "info", "speaker": "Антон", "text": "Неподалёку от дома я наткнулся на вывеску - местный компьютерный клуб проводит кибертурнир по Контре. Может залететь... почему бы просто не зайти осмотреться? Разведаю обстановку.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_ok_5_cheese" },	
+	{ "id": "Walk_ok_5_cheese", "type": "info", "speaker": "Антон", "text": "На стойке сидел администратор, обративший на меня внимание. А еще на мою шаурме.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_ok_6_cheese" },	
+	{ "id": "Walk_ok_6_cheese", "type": "info", "speaker": "Антон", "text": "- С шаурмой нельзя - обратил внимание админ, - Особенно в сырном.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_5" },	
+	
+	{ "id": "Walk_not_ok_2_cheese", "type": "info", "speaker": "Антон", "text": "Неподалёку от дома я наткнулся на вывеску - местный компьютерный клуб проводит кибертурнир по Контре. Может залететь... почему бы просто не зайти осмотреться? Разведаю обстановку.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_not_ok_4_cheese" },	
+	{ "id": "Walk_not_ok_3_cheese", "type": "info", "speaker": "Антон", "text": "На стойке сидел администратор, обративший на меня внимание. А еще на мою шаурму.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_not_ok_4_cheese" },	
+	
+	{ "id": "Walk_not_ok_4_cheese", "type": "info", "speaker": "Антон", "text": "- С шаурмой нельзя - обратил внимание админ, - Особенно не в сырном.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_5" },
+	{ "id": "Walk_5", "type": "info", "speaker": "Антон", "text": "Быстро доев отвратительную, по мнению админа шаурму, я решил задать пару вопросов.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_6" },	
+	
+	{ "id": "WalkNotOk", "type": "info", "speaker": "Антон", "text": "Неподалёку от дома я наткнулся на вывеску - местный компьютерный клуб проводит кибертурнир по Контре. Может залететь... почему бы просто не зайти осмотреться? Разведаю обстановку.", "staticImage": "img/ui_main.jpg", "nextId": "WalkNotOk_1" },	
+	{ "id": "WalkNotOk_1", "type": "info", "speaker": "Антон", "text": "На стойке сидел администратор, обративший на меня внимание.", "staticImage": "img/ui_main.jpg", "nextId": "WalkNotOk_2" },
+	{ "id": "WalkNotOk_2", "type": "info", "speaker": "Антон", "text": "- В клуб без еды? - обратил внимание админ, - Отвратительно.", "staticImage": "img/ui_main.jpg", "nextId": "WalkNotOk_3" },
+	{ "id": "WalkNotOk_3", "type": "info", "speaker": "Антон", "text": "Разачаровано взглянув на админа, я решил задать пару вопросов.", "staticImage": "img/ui_main.jpg", "nextId": "Walk_6" }
   ],
 
   "idleEvents": [

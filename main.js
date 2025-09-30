@@ -419,6 +419,11 @@ function resolveNextEventId(currentId, marker) {
 }
 
 function advanceDay() {
+
+try { clearAllEventsUI(); } catch(e){}
+state.feed = [];
+renderFeed();
+
   state.day = Math.min(14, state.day + 1);
   state.dayCompleted = false;
   state.nodeId = state.nextDayStartNodeId || getDayStartNode(state.day);

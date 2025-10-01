@@ -132,9 +132,9 @@
     { "id": "Welcome", "type": "info", "speaker": "Антон", "text": "Сколько себя помню, у меня всегда была мечта...", "label": "Далее", "staticImage": "img/main.jpg", "nextId": "Welcome1" },
     { "id": "Welcome1", "type": "info", "speaker": "Антон", "text": "Я с детства любил игры. ","staticImage": "img/main.jpg", "nextId": "Welcome2" },
     { "id": "Welcome2", "type": "info", "speaker": "Антон", "text": "Меня увлекал процесс... соревнование... драйв.", "staticImage": "img/main.jpg", "nextId": "Welcome3" },
-    { "id": "Welcome3", "type": "info", "speaker": "Антон", "text": "Я хочу связать свою жизнь с этим, но киберспорт - слишком сложная вещь для меня. Может открыть свой компьютерный клуб?", "staticImage": "img/main.jpg", "nextId": "Welcome4" },
-    { "id": "Welcome4", "type": "info", "speaker": "Антон", "text": "Как было бы здорово собрать всех своих друзей под одной крышей и сыграть всем вместе.", "staticImage": "img/main.jpg", "nextId": "Welcome5" },
-    { "id": "Welcome5", "type": "info", "speaker": "Антон", "text": "Как в старые добрые...", "staticImage": "img/main.jpg", "nextId": "Welcome6" },
+    { "id": "Welcome3", "type": "info", "speaker": "Антон", "text": "Может открыть свой компьютерный клуб?", "staticImage": "img/main.jpg", "nextId": "Welcome4" },
+    { "id": "Welcome4", "type": "info", "speaker": "Антон", "text": "Как было бы здорово, собрать игроков под одной крышей.", "staticImage": "img/main.jpg", "nextId": "Welcome5" },
+    { "id": "Welcome5", "type": "info", "speaker": "Антон", "text": "Устроить турнир, призовые...", "staticImage": "img/main.jpg", "nextId": "Welcome6" },
     { "id": "Welcome6", "type": "info", "speaker": "Антон", "text": "Хорошая мечта.", "staticImage": "img/main.jpg", "nextId": "Welcome7" },
     { "id": "Welcome7", "type": "info", "speaker": "Антон", "text": "В конце концов - мечты сбываются, верно?", "staticImage": "img/main.jpg", "nextId": "Welcome9" },
     { "id": "Welcome9", "type": "info", "speaker": "Антон", "text": "Меня разбудил зазвонивший телефон. Я решил игнорировать и продолжить спать, но звонок не прекращался.",  "staticImage": "img/Telephone.jpg", "nextId": "Phone" },
@@ -196,15 +196,15 @@
       "nextId": "__next_day__"
     },
 	
-    { "id": "Telephone", "type": "info", "speaker": "???", "text": "- Привет! Дружище, пора просыпаться!", "staticImage": "img/Telephone.jpg", "nextId": "Telephone1" },
+    { "id": "Telephone", "type": "info", "speaker": "???", "text": "- Привет! Пора просыпаться!", "staticImage": "img/Telephone.jpg", "nextId": "Telephone1" },
     { "id": "Telephone1", "type": "info", "speaker": "Антон", "text": "По голосу я понял, что это Иван, мой давний товарищ. Кажется, впервые я играл по сетке именно с ним, ещё когда был совсем ребёнком.", "staticImage": "img/Anton.jpg", "nextId": "Telephone2" },
     { "id": "Telephone2", "type": "info", "speaker": "Антон", "text": "- Привет. Ты чего звонишь вдруг?", "staticImage": "img/Anton.jpg", "nextId": "Telephone3" },
-    { "id": "Telephone3", "type": "info", "speaker": "Иван", "text": "- Как чего, ты забыл? Мы договорились, что сегодня созвонимся - у тебя была супер-идея!", "staticImage": "img/Ivan.jpg", "nextId": "Telephone4" },
-    { "id": "Telephone4", "type": "info", "speaker": "Антон", "text": "Я уже и забыл, что рассказал ему о своей идее с клубом... Но, быть может, это и не плохо. У него больше опыта в таких делах. \n \n В конце концов, он ведь работает в банке.", "staticImage": "img/Anton.jpg", "nextId": "Telephone5" },
-    { "id": "Telephone5", "type": "info", "speaker": "Антон", "text": "- А, ты об этом... Слушай, я ведь просто так закинул...", "staticImage": "img/Anton.jpg", "nextId": "Telephone6" },
-    { "id": "Telephone6", "type": "info", "speaker": "Иван", "text": "- Да ты что! Прекращай, ты прав абсолютно. Только вспомни, как здорово было в детстве в компах. Я истосковался по этому, если честно.  \n \n Поэтому я считаю твою идею с компьютерным клубом просто отличной. Я всё обдумал, у меня есть план действий...", "staticImage": "img/Ivan.jpg", "nextId": "Telephone7" },
+    { "id": "Telephone3", "type": "info", "speaker": "Иван", "text": "- Как чего, ты забыл? Мы договорились, что сегодня созвонимся насчет открытия компьютерного клуба!", "staticImage": "img/Ivan.jpg", "nextId": "Telephone4" },
+    { "id": "Telephone4", "type": "info", "speaker": "Антон", "text": "Я уже и забыл, что рассказал ему о своей идее с клубом. У него точно больше опыта в таких делах. \n \n В конце концов, он ведь работает в банке.", "staticImage": "img/Anton.jpg", "nextId": "Telephone5" },
+    { "id": "Telephone5", "type": "info", "speaker": "Антон", "text": "- Слушай, я ведь просто так закинул...", "staticImage": "img/Anton.jpg", "nextId": "Telephone6" },
+    { "id": "Telephone6", "type": "info", "speaker": "Иван", "text": "- Прекращай, я считаю твою идею с компьютерным клубом просто отличной. Я всё обдумал, у меня даже есть план действий...", "staticImage": "img/Ivan.jpg", "nextId": "Telephone7" },
     { "id": "Telephone7", "type": "info", "speaker": "Антон", "text": "Назад пути нет: рассказал о своей идее человеку, который если вцепится, то не отпустит... \n \n У него ещё и план есть...", "staticImage": "img/Anton.jpg", "nextId": "Telephone8" },
-    { "id": "Telephone8", "type": "info", "speaker": "Иван", "text": "- Я серьёзно, слушай, мы можем это потянуть. Действительно можем. Сейчас компьютерные клубы достаточно популярны, да и лампово как будет. Ты только представь: откроем клуб, раскрутимся, проведем несколько ивентов... Глядишь может и сеть свою сможем устроить! Представь, что мы играем вместо основной работы! Потом и наших соберём всех...", "staticImage": "img/Ivan.jpg", "nextId": "Telephone9" },
+    { "id": "Telephone8", "type": "info", "speaker": "Иван", "text": "- Слушай, мы можем это потянуть. Действительно можем. Сейчас компьютерные клубы достаточно популярны, да и лампово как будет. Ты только представь: откроем клуб, раскрутимся, проведем несколько ивентов... Глядишь может и сеть свою сможем устроить! Турниры, все такое. Наших соберем...", "staticImage": "img/Ivan.jpg", "nextId": "Telephone9" },
     { "id": "Telephone9", "type": "info", "speaker": "Антон", "text": "Надо что-то ему ответить.", "staticImage": "img/Anton.jpg", "nextId": "Telephone_choise" },
 
     {
@@ -213,7 +213,7 @@
       "speaker": "Антон",
       "text": "Что ответим?",
       "choices": [
-        { "id": "a", "label": "- Слушай, ну... Я думаю, мы можем попробовать.", "nextId": "Choise_ok" },
+        { "id": "a", "label": "- Я думаю, мы можем попробовать.", "nextId": "Choise_ok" },
         { "id": "b", "label": "- Мне кажется, это не лучшая затея.", "nextId": "ChoiseNotOk" }
       ]
     },

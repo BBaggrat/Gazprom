@@ -197,7 +197,7 @@
     },
 	
     { "id": "Telephone", "type": "info", "speaker": "???", "text": "- Привет! Дружище, пора просыпаться!", "staticImage": "img/Telephone.jpg", "nextId": "Telephone1" },
-    { "id": "Telephone1", "type": "info", "speaker": "Антон", "text": "По голосу я понял, что это Иван, мой давний товарищ. Кажется, впервые, я играл по сетке именно с ним, ещё когда был совсем ребёнком.", "staticImage": "img/Anton.jpg", "nextId": "Telephone2" },
+    { "id": "Telephone1", "type": "info", "speaker": "Антон", "text": "По голосу я понял, что это Иван, мой давний товарищ. Кажется, впервые я играл по сетке именно с ним, ещё когда был совсем ребёнком.", "staticImage": "img/Anton.jpg", "nextId": "Telephone2" },
     { "id": "Telephone2", "type": "info", "speaker": "Антон", "text": "- Привет. Ты чего звонишь вдруг?", "staticImage": "img/Anton.jpg", "nextId": "Telephone3" },
     { "id": "Telephone3", "type": "info", "speaker": "Иван", "text": "- Как чего, ты забыл? Мы договорились, что сегодня созвонимся - у тебя была супер-идея!", "staticImage": "img/Ivan.jpg", "nextId": "Telephone4" },
     { "id": "Telephone4", "type": "info", "speaker": "Антон", "text": "Я уже и забыл, что рассказал ему о своей идее с клубом... Но, быть может, это и не плохо. У него больше опыта в таких делах. \n \n В конце концов, он ведь работает в банке.", "staticImage": "img/Anton.jpg", "nextId": "Telephone5" },

@@ -19,8 +19,8 @@
     "Picked_call_event": {
       "cooldownTitle": "Еле просыпаюсь от звонка",
       "cooldownText": "Телефон звонит не останавливаясь. \n \n Подсказка: теперь Антон будет выполнять действия самостоятельно. Они зависят от вашего выбора. Для конкурса время этапа и время действий уменьшено.",
-      "cooldownMin": 1,
-      "idleIntervalSec": 10,
+      "cooldownMin": 0.5,
+      "idleIntervalSec": 5,
       "events": [
         { "id": "Picked_call_event_1", "text": "Пытаюсь открыть глаза." },
         { "id": "Picked_call_event_2", "text": "Не могу найти телефон. Рукой шарю по столику." },
@@ -32,8 +32,8 @@
 	  "Picked_call_agro_ev": {
       "cooldownTitle": "Телефон звонит не останавливаясь.",
       "cooldownText": "Звонок заставил меня проснуться. Надеюсь, что там что-то важное. \n \n Подсказка: теперь Антон будет выполнять действия самостоятельно. Они зависят от вашего предыдущего выбора. \n Для конкурса время этапа и время действий уменьшено.",
-      "cooldownMin": 1,
-      "idleIntervalSec": 10,
+      "cooldownMin": 0.5,
+      "idleIntervalSec": 5,
       "events": [
         { "id": "Picked_call_event_1_agro", "text": "Недовольно пытаюсь открыть глаза."},
         { "id": "Picked_call_event_2_agro", "text": "Перерываю всю кровать." },
@@ -46,8 +46,8 @@
     "Credit_events": {
       "cooldownTitle": "Обсуждаем наши ресурсы.",
       "cooldownText": "Одна голова - хорошо. Но две - лучше.",
-      "cooldownMin": 1,
-      "idleIntervalSec": 10,
+      "cooldownMin": 0.5,
+      "idleIntervalSec": 5,
 "link": 
   {
     "url": "https://www.gazprombank.ru/business/all-credits/",
@@ -68,8 +68,8 @@
     "Budjet_events": {
       "cooldownTitle": "Рассматриваем банковские продукты.",
       "cooldownText": "Ладно, посмотрим, что можно сделать. В любом случае, Иван работал в банке. Он точно должен что-то понимать.",
-      "cooldownMin": 1,
-      "idleIntervalSec": 10,
+      "cooldownMin": 0.5,
+      "idleIntervalSec": 5,
 	        "link": {
 			"url": "https://www.gazprombank.ru/business/",
 			"label": "Посмотреть общебанковские продукты для бизнеса."},
@@ -86,8 +86,8 @@
       "Walk_Comp": {
       "cooldownTitle": "Присматриваюсь к чужому клубу.",
       "cooldownText": "Хорошо, может администратор тот еще хам. Но сам клуб должен быть неплохим. Может тут лучше условия?",
-      "cooldownMin": 1,
-      "idleIntervalSec": 10,
+      "cooldownMin": 0.5,
+      "idleIntervalSec": 5,
       "events": [
         { "id": "cs_1", "text": "Изучаю сборки ПК." },
         { "id": "cs_2", "text": "Смотрю на ругающихся участников турнира", "chain": "Comp_chain1", "next": "cs_3", "once": true },
@@ -103,8 +103,8 @@
         "eqv_Comp": {
       "cooldownTitle": "Если будет оплата только наличными - потеряем клиентов.",
       "cooldownText": "Поход в другой клуб оказался провалом. Иронично, что я не сел за компьютер просто из-за отсутствия наличных.",
-      "cooldownMin": 1,
-      "idleIntervalSec": 10,
+      "cooldownMin": 0.5,
+      "idleIntervalSec": 5,
 	  	        "link": {
 			"url": "https://www.gazprombank.ru/business/acquiring-sbp/",
 			"label": "Посмотреть предложения по эквайрингу."},

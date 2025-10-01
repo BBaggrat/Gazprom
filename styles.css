@@ -26,7 +26,13 @@ body{
   display:flex;align-items:center;gap:12px;
   position:sticky;top:0;background:var(--bg);z-index:10;padding:8px 0 12px;
 }
-.logo-dot{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));}
+.logo-dot {
+  width: 40px;
+  height:40px;
+  object-fit: contain;
+  background: none;
+  border-radius: 0;
+}
 .chip{padding:6px 10px;border-radius:999px;background:#11131a;color:#c9d1e3;font-size:13px}
 .icon-btn{margin-left:auto;background:#11131a;border:1px solid #242731;border-radius:12px;color:var(--text);padding:6px 10px;cursor:pointer}
 .icon-btn + .icon-btn{margin-left:8px}

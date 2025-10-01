@@ -129,11 +129,9 @@
   ],
 
   "nodes": [
-    { "id": "Welcome", "type": "info", "speaker": "Антон", "text": "Сколько себя помню, у меня всегда была мечта...", "label": "Далее", "staticImage": "img/main.jpg", "nextId": "Welcome1" },
-    { "id": "Welcome1", "type": "info", "speaker": "Антон", "text": "Я с детства любил игры. ","staticImage": "img/main.jpg", "nextId": "Welcome2" },
-    { "id": "Welcome2", "type": "info", "speaker": "Антон", "text": "Меня увлекал процесс... соревнование... драйв.", "staticImage": "img/main.jpg", "nextId": "Welcome3" },
-    { "id": "Welcome3", "type": "info", "speaker": "Антон", "text": "Может открыть свой компьютерный клуб?", "staticImage": "img/main.jpg", "nextId": "Welcome4" },
-    { "id": "Welcome4", "type": "info", "speaker": "Антон", "text": "Как было бы здорово, собрать игроков под одной крышей.", "staticImage": "img/main.jpg", "nextId": "Welcome5" },
+    { "id": "Welcome", "type": "info", "speaker": "Антон", "text": "Сколько себя помню, я мечтал об одном — о собственном компьютерном клубе.", "label": "Далее", "staticImage": "img/main.jpg", "nextId": "Welcome1" },
+    { "id": "Welcome1", "type": "info", "speaker": "Антон", "text": "С детства я обожал игры. Меня захватывал сам процесс, дух соревнования и тот самый драйв. ","staticImage": "img/main.jpg", "nextId": "Welcome4" },
+    { "id": "Welcome4", "type": "info", "speaker": "Антон", "text": "Было бы здорово, собрать игроков под одной крышей.", "staticImage": "img/main.jpg", "nextId": "Welcome5" },
     { "id": "Welcome5", "type": "info", "speaker": "Антон", "text": "Устроить турнир, призовые...", "staticImage": "img/main.jpg", "nextId": "Welcome6" },
     { "id": "Welcome6", "type": "info", "speaker": "Антон", "text": "Хорошая мечта.", "staticImage": "img/main.jpg", "nextId": "Welcome7" },
     { "id": "Welcome7", "type": "info", "speaker": "Антон", "text": "В конце концов - мечты сбываются, верно?", "staticImage": "img/main.jpg", "nextId": "Welcome9" },
@@ -154,7 +152,7 @@
       "id": "Canceled_call",
       "type": "info",
       "speaker": "Антон",
-      "text": "Звонок не прекращается.",
+      "text": "Звонок не прекращается. Что будем делать?",
       "cooldownPoolId": "Picked_call_event",
       "nextId": "Canceled_call_1"
     },
@@ -183,7 +181,7 @@
       "id": "Picked_call_ev",
       "type": "info",
       "speaker": "Антон",
-      "text": "Нужно ответить на звонок.",
+      "text": "Надеюсь, что это важно.",
       "cooldownPoolId": "Picked_call_event",
       "nextId": "__next_day__"
     },
@@ -191,7 +189,7 @@
       "id": "Picked_call_agro_2",
       "type": "info",
       "speaker": "Антон",
-      "text": "Поднимаю трубку",
+      "text": "Надеюсь, что это важно.",
       "cooldownPoolId": "Picked_call_agro_ev",
       "nextId": "__next_day__"
     },

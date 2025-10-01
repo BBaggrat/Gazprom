@@ -6,7 +6,6 @@
     "ui": {
       "defaultImage": "img/main.jpg",
       "backgroundMusic": "sounds/bg.mp3",
-      "idleSound": "sounds/idle.mp3",
       "backgroundVolume": 0.07,
       "clickVolume": 0.7
     },
